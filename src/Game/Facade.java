@@ -10,6 +10,8 @@ package Game; /**
  * Initial creation of case study
  */
 
+import Players.Player;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
@@ -197,7 +199,7 @@ public class Facade extends Component {
         try {
             // Checks to see that playerNum is valid
             if (playerNum == 1 || playerNum == 2) {
-                // checks both Player objects to see which one is
+                // checks both Players objects to see which one is
                 // associated with the legal number returns the name of
                 // the player asscociated with the number
                 if (activePlayer.getNumber() == playerNum) {

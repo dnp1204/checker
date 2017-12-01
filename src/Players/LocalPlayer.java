@@ -1,4 +1,4 @@
-package Game; /**
+package Players; /**
  * LocalPlayer.java
  * <p>
  * Version:
@@ -9,6 +9,9 @@ package Game; /**
  * Revision 1.1  2002/10/22 21:12:52  se362
  * Initial creation of case study
  */
+
+import Game.Driver;
+import Game.Rules;
 
 import javax.swing.*;
 

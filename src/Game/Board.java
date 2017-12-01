@@ -10,6 +10,10 @@ package Game; /**
  *     Initial creation of case study
  *
  */
+import Pieces.KingPiece;
+import Pieces.Piece;
+import Pieces.SinglePiece;
+
 import java.util.*;
 import java.awt.*;
 
@@ -73,7 +77,7 @@ public class Board {
    
 
    /**
-    * Move the piece at the start position to the end position
+    * Moves the piece at the start position to the end position
     * 
     * @param start - current location of the piece
     * @param end - the position where piece is moved

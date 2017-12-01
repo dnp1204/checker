@@ -10,6 +10,11 @@ package Game; /**
  * Initial creation of case study
  */
 
+import Moves.Move;
+import Pieces.Piece;
+import Pieces.SinglePiece;
+import Players.Player;
+
 import java.util.*;
 import java.awt.*;
 
@@ -121,7 +126,7 @@ public class Rules {
                     possibleJumps = checkForPossibleJumps(start, pieceType,
                             player);
                     if (possibleJumps.contains(new Integer(end))) {
-                        // Move the piece
+                        // Moves the piece
                         theBoard.movePiece(start, end);
                         // Remove the jumped piece
                         theBoard.removePiece(middle);
@@ -176,7 +181,7 @@ public class Rules {
                         }
 
                     }
-                } // Move is either valid or not. 
+                } // Moves is either valid or not.
             } // end if piece on start space is the correct color
 
             // If the move was not valid, tell the player.

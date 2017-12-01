@@ -3,28 +3,28 @@ package GameTypeState;
 import GUIElements.FirstScreen;
 import GUIElements.SecondScreen;
 
-public class LocalGameState implements GameState {
+public class HostGameState implements GameState {
     private FirstScreen firstScreen;
 
-    public LocalGameState(FirstScreen firstScreen) {
+    public HostGameState(FirstScreen firstScreen) {
         this.firstScreen = firstScreen;
     }
 
     @Override
     public void doAction() {
+        //set up to host a game
         try {
-            //set up a local game
-            firstScreen.getTheFacade().setGameMode(firstScreen.getTheFacade().LOCALGAME);
+            firstScreen.getTheFacade().setGameMode(firstScreen.getTheFacade().HOSTGAME);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        firstScreen.getTheFacade().createPlayer(1, firstScreen.getTheFacade().LOCALGAME);
-        firstScreen.getTheFacade().createPlayer(2, firstScreen.getTheFacade().LOCALGAME);
+        firstScreen.getTheFacade().createPlayer(1, firstScreen.getTheFacade().HOSTGAME);
+        firstScreen.getTheFacade().createPlayer(2, firstScreen.getTheFacade().HOSTGAME);
 
-        //hide the FirstScreen, make a SecondScreen and show it
+        //hide the FirstScreen, make the SecondScreen and show it
         firstScreen.hide();
         SecondScreen next = new SecondScreen(firstScreen.getTheFacade(), firstScreen, firstScreen.getTheFacade()
-                .LOCALGAME);
+                .HOSTGAME);
         next.show();
     }
 

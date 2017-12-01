@@ -1,19 +1,23 @@
-package Game; /**
- * Player.java
+package Players; /**
+ * Players.java
  * <p>
  * Version:
- * $Id: Player.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ * $Id: Players.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  * <p>
  * Revisions:
- * $Log: Player.java,v $
+ * $Log: Players.java,v $
  * Revision 1.1  2002/10/22 21:12:53  se362
  * Initial creation of case study
  */
 
+import Game.Driver;
+import Game.Rules;
+import Moves.Move;
+
 import java.awt.*;
 
 /**
- * A class representation of the Player object.  This object
+ * A class representation of the Players object.  This object
  * contains the methods needed when one of the users clicks
  * on one of the buttons within the GUI.
  *
@@ -42,7 +46,7 @@ public abstract class Player {
     protected int type;
 
     /**
-     * Create a new instance of a Player object to represent
+     * Create a new instance of a Players object to represent
      * one of the users.
      *
      * @param num       The number of the player.
@@ -67,7 +71,7 @@ public abstract class Player {
     }
 
     /**
-     * Make an istance of a Move that was just made and pass it
+     * Make an istance of a Moves that was just made and pass it
      * to theRules by calling its validateMove method.
      *
      * @param start The starting spot of the move.  The legal
@@ -189,7 +193,7 @@ public abstract class Player {
      * @return a String representation of this object.
      */
     public String toString() {
-        return ("Player.  name = " + playerName);
+        return ("Players.  name = " + playerName);
     }
 
-}//Player.java
+}//Players.java

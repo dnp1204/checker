@@ -1,4 +1,4 @@
-package Game;/*
+package GUIElements;/*
  * SecondScreen.java
  *
  * Version:
@@ -10,6 +10,8 @@ package Game;/*
  *   Initial creation of case study
  *
  */
+
+import Game.Facade;
 
 import javax.swing.*;
 import java.awt.*;
@@ -116,7 +118,7 @@ public class SecondScreen extends JFrame
         playerOneLabel.setName("playerOneLabel");
         playerOneLabel.setBackground(new Color (204, 204, 204));
         playerOneLabel.setForeground(Color.black);
-        playerOneLabel.setText("Player 1:");
+        playerOneLabel.setText("Players 1:");
         
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 0;
@@ -128,7 +130,7 @@ public class SecondScreen extends JFrame
         playerTwoLabel.setName("playerTwoLabel");
         playerTwoLabel.setBackground(new Color (204, 204, 204));
         playerTwoLabel.setForeground(Color.black);
-        playerTwoLabel.setText("Player 2:");
+        playerTwoLabel.setText("Players 2:");
         
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 0;

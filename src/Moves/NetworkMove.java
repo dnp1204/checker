@@ -1,4 +1,4 @@
-package Game; /**
+package Moves; /**
  * NetworkMove.java
  *
  * Version:
@@ -11,10 +11,12 @@ package Game; /**
  *
  */
 
+import Players.NetworkPlayer;
+
 import java.io.*;
 
 /**
- * An object representation of a move, without a reference to the Player who
+ * An object representation of a move, without a reference to the Players who
  * made the move.
  *
  * @author
@@ -41,9 +43,9 @@ public class NetworkMove implements Serializable {
     }
 
 	/**
-	 * Gets the start and end locations from an incoming Move.
+	 * Gets the start and end locations from an incoming Moves.
 	 * 
-	 * @param aMove - the incoming Move object.
+	 * @param aMove - the incoming Moves object.
 	 */
     public NetworkMove( Move aMove ) {
 
@@ -94,7 +96,7 @@ public class NetworkMove implements Serializable {
 	 */
     public String toString() {
 
-        return ("Move.  startLoc = " + startingLocation + ", endLoc = "
+        return ("Moves.  startLoc = " + startingLocation + ", endLoc = "
                    + endingLocation);
 
     }

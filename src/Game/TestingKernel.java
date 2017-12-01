@@ -15,6 +15,8 @@ package Game; /**
                                       
 // Not all of these are probably necessary.
 
+import Players.Player;
+
 /**
  *  This class is the system's Testing Kernel.  For now it is hard 
  *  coded, sequential tests that will be performed.
@@ -118,13 +120,13 @@ public class TestingKernel extends java.lang.Object{
         boolean passedTest = false;
         
         // Test that it correctly set the initial values correctly.
-        // Player One's Name
+        // Players One's Name
         passedTest = playerOne.equals( testFacade.getPlayerName( 1 ) );
-        report( passedTest, "Sets Player One name", 3 );
+        report( passedTest, "Sets Players One name", 3 );
   
-        // Player Two's Name
+        // Players Two's Name
         passedTest = playerTwo.equals( testFacade.getPlayerName( 2 ) );
-        report( passedTest, "Sets Player Two name", 3 );
+        report( passedTest, "Sets Players Two name", 3 );
         
         // The Timer.
         passedTest = ( testTime == testFacade.getTimer() );

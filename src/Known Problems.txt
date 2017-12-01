@@ -11,7 +11,7 @@ Sometimes the game seems frozen until the user has clicked several
 	squares, eventually sending an illegal move,
 	this in turn allows valid moves to be made.
 
-Player 2's name may not be over 8 characters, otherwise the GUI will
+Players 2's name may not be over 8 characters, otherwise the GUI will
 	not display properly.
 
 Dialogues produced by many classes.

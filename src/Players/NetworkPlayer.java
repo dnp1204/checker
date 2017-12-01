@@ -1,4 +1,4 @@
-package Game;/*
+package Players;/*
  * NetworkPlayer.java
  *
  * Version:
@@ -10,6 +10,11 @@ package Game;/*
  *   Initial creation of case study
  *
  */
+
+import Game.Driver;
+import Game.Rules;
+import Moves.Move;
+import Moves.NetworkMove;
 
 import java.net.*;
 import java.io.*;
@@ -65,7 +70,7 @@ public class NetworkPlayer extends Player {
    /**
     *  Constructor that creates a default object of this class
     */
-   public NetworkPlayer( int playerNum, Rules rules, Driver theDriver ) {
+   public NetworkPlayer(int playerNum, Rules rules, Driver theDriver ) {
 
     	// call super classes (player) constructor to give it starting info
     	super( playerNum, rules, theDriver );
@@ -435,16 +440,16 @@ public class NetworkPlayer extends Player {
                 if ( outputObj.intValue() == ACCEPTDRAW ) {
                     cleanup();
                 }
-            } else if ( inputObj instanceof NetworkMove ) {
+            } else if ( inputObj instanceof NetworkMove) {
 		
 		NetworkMove remoteMove = ( NetworkMove ) inputObj;
 		
                 // If it's a move, send it off to be validated
-                theRules.validateMove( new Move( this, 
+                theRules.validateMove( new Move( this,
 		      remoteMove.startLocation(), remoteMove.endLocation() ) );
 
 		// DEBUG:
-                System.out.println( "Move received." );
+                System.out.println( "Moves received." );
                 outputObj = new Integer( ROGER );
                 try {
                         out.writeObject( outputObj );

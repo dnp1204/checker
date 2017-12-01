@@ -21,6 +21,8 @@ package Game;/*
  */
 
 
+import GUIElements.FirstScreen;
+
 /**
  *
  * The main class to run the game. It creates the driver and first screen

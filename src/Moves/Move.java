@@ -1,15 +1,17 @@
-package Game; /**
- * Move.java
+package Moves; /**
+ * Moves.java
  *
  * Version:
- *    $Id: Move.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
+ *    $Id: Moves.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
  *
  * Revisions:
- *    $Log: Move.java,v $
+ *    $Log: Moves.java,v $
  *    Revision 1.1  2002/10/22 21:12:52  se362
  *    Initial creation of case study
  *
  */
+
+import Players.Player;
 
 /**
  * An object representation of a move.
@@ -82,4 +84,4 @@ package Game; /**
 		return endingLocation;
 	}
      
-} //Move.java
+} //Moves.java

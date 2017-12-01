@@ -1,4 +1,4 @@
-package Game;/*
+package GUIElements;/*
  * FirstScreen.java
  *
  *  * Version:
@@ -11,7 +11,10 @@ package Game;/*
  *
  */
 
+import Game.Facade;
 import GameTypeState.GameState;
+import GameTypeState.HostGameState;
+import GameTypeState.JoinGameState;
 import GameTypeState.LocalGameState;
 
 import java.net.*;
@@ -25,8 +28,7 @@ import java.awt.*;
 
 public class FirstScreen extends JFrame implements ActionListener {
 
-    Facade theFacade;
-    SecondScreen next;
+    private Facade theFacade;
 
     // Variables declaration - do not modify
     private JRadioButton LocalGameButton;
@@ -39,8 +41,11 @@ public class FirstScreen extends JFrame implements ActionListener {
     private JLabel IPExampleLabel;
     private ButtonGroup gameModes;
 
+    // GameState variables
     private GameState gameState;
-    private LocalGameState localGameState;
+    private GameState localGameState;
+    private GameState joinGameState;
+    private GameState hostGameState;
     // End of variables declaration
 
     /**
@@ -55,6 +60,8 @@ public class FirstScreen extends JFrame implements ActionListener {
         theFacade = facade;
 
         localGameState = new LocalGameState(this);
+        joinGameState = new JoinGameState(this);
+        hostGameState = new HostGameState(this);
         gameState = localGameState;
 
         initComponents();
@@ -201,89 +208,28 @@ public class FirstScreen extends JFrame implements ActionListener {
      */
 
     public void actionPerformed(ActionEvent e) {
+        //this code handles disabling the IP field unless
+        //the join game radio button is selected
+        if ((e.getActionCommand()).equals("join")) {
+            gameState = joinGameState;
+            gameState.setIPField();
+        } else if ((e.getActionCommand()).equals("local")) {
+            gameState = localGameState;
+            gameState.setIPField();
+        } else if ((e.getActionCommand()).equals("host")) {
+            gameState = hostGameState;
+            gameState.setIPField();
 
-        try {
-            //this code handles disabling the IP field unless
-            //the join game radio button is selected
-            if ((e.getActionCommand()).equals("join")) {
-                IPField.setEnabled(true);
-            } else if ((e.getActionCommand()).equals("local")) {
-                gameState = localGameState;
-                localGameState.setIPField();
-            } else if ((e.getActionCommand()).equals("host")) {
-                IPField.setEnabled(false);
+        } else if ((e.getActionCommand()).equals("ok")) {
+            //this next if statement takes care of when the
+            //OK button is selected and goes to the second
+            //screen settings the desired options
+            gameState.doAction();
 
-                //this next if statement takes care of when the
-                //OK button is selected and goes to the second
-                //screen settign the desired options
-
-            } else if ((e.getActionCommand()).equals("ok")) {
-
-                //a temporary button to use for determining the game type
-                ButtonModel tempButton = gameModes.getSelection();
-
-                //if check to see of the local radio button is selected
-                if (tempButton.getActionCommand().equals("local")) {
-                    System.out.println(gameState);
-                    gameState.doAction();
-
-                    //if the host game button is selected
-                } else if (tempButton.getActionCommand().equals("host")) {
-
-                    //set up to host a game
-                    theFacade.setGameMode(theFacade.HOSTGAME);
-
-                    theFacade.createPlayer(1, theFacade.HOSTGAME);
-                    theFacade.createPlayer(2, theFacade.HOSTGAME);
-
-                    //hide the FirstScreen, make the SecondScreen and show it
-                    this.hide();
-                    next = new SecondScreen(theFacade, this, theFacade.HOSTGAME);
-                    next.show();
-
-                    //if the join game button is selected
-                } else if (tempButton.getActionCommand().equals("join")) {
-
-                    //set up to join a game
-                    theFacade.setGameMode(theFacade.CLIENTGAME);
-
-                    theFacade.createPlayer(1, theFacade.CLIENTGAME);
-                    theFacade.createPlayer(2, theFacade.CLIENTGAME);
-
-                    //try to connect
-                    try {
-
-                        //create a URL from the IP address in the IPfield
-                        URL address = new URL("http://" + IPField.getText());
-                        //set the host
-                        theFacade.setHost(address);
-
-                        //hide the FirstScreen, make and show the Second screen
-                        this.hide();
-                        next = new SecondScreen(theFacade, this, theFacade.CLIENTGAME);
-                        next.show();
-
-                        //catch any exceptions
-                    } catch (MalformedURLException x) {
-                        JOptionPane.showMessageDialog(null,
-                                "Invalid host address",
-                                "Error",
-                                JOptionPane.INFORMATION_MESSAGE);
-                    }//end of networking catch statement
-
-                    //set up to connect to another person
-                }
-
-
-                //if they hit cancel exit the game
-            } else if (e.getActionCommand().equals("cancel")) {
-                System.exit(0);
-            }
-
-        } catch (Exception x) {
-            System.err.println(x.getMessage());
-        }//end of general catch statement
-
+            //if they hit cancel exit the game
+        } else if (e.getActionCommand().equals("cancel")) {
+            System.exit(0);
+        }
     }//end of actionPerformed
 
     public Facade getTheFacade() {
@@ -293,4 +239,4 @@ public class FirstScreen extends JFrame implements ActionListener {
     public JTextField getIPField() {
         return IPField;
     }
-}//FirstScreen.java
+} //FirstScreen.java

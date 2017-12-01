@@ -1,4 +1,4 @@
-package Game; /**
+package Pieces; /**
  * KingPiece.java
  *
  * Version:
@@ -10,6 +10,7 @@ package Game; /**
  *   Initial creation of case study
  *
  */
+
 import java.awt.*;
 
 /**

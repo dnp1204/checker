@@ -11,6 +11,10 @@ package Game; /**
  *
  */
 
+import Players.LocalPlayer;
+import Players.NetworkPlayer;
+import Players.Player;
+
 import java.awt.*;
 import java.net.*;
 import javax.swing.*;
@@ -29,7 +33,7 @@ import javax.swing.*;
 
 public class Driver {
     
-    private Player  playerOne;
+    private Player playerOne;
     private Player  playerTwo;
     private int     gameType;
     private Player  activePlayer;
@@ -90,7 +94,7 @@ public class Driver {
 	    if ( space < 0 ){
 		JOptionPane.showMessageDialog( null,
 	       	       activePlayer.getName() + " made an illegal move",
-      	       	       "Invalid Move", JOptionPane.INFORMATION_MESSAGE );
+      	       	       "Invalid Moves", JOptionPane.INFORMATION_MESSAGE );
 	    } else {
 		JOptionPane.showMessageDialog( null,
 		       activePlayer.getName() + " please make" +

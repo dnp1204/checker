@@ -1,4 +1,4 @@
-package Game; /**
+package Pieces; /**
  * SinglePiece.java
  *
  * Version:
@@ -10,6 +10,8 @@ package Game; /**
  *   Initial creation of case study
  *
  */
+
+import Pieces.Piece;
 
 import java.awt.*;
 

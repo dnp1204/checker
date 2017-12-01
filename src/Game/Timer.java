@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * Timer.java
  * <p>
  * Version:

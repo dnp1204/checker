@@ -1,4 +1,4 @@
-/*
+package Game;/*
  * NetworkPlayer.java
  *
  * Version:

@@ -1,4 +1,4 @@
-/*
+package Game;/*
  * CheckerGUI.java
  * 
  * The actual board.

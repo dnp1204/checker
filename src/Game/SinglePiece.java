@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * SinglePiece.java
  *
  * Version:
@@ -12,7 +12,6 @@
  */
 
 import java.awt.*;
-import java.util.*;
 
 /**
  * This is a class representing a single piece (a piece that has not been

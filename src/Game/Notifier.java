@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * Notifier.java
  * <p>
  * Version:

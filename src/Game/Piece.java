@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * Piece.java
  *
  * Version:

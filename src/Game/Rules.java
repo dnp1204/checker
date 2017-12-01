@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * Rules.java
  * <p>
  * Version:

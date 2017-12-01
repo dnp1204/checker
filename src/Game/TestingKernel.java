@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * TestingKernel.java
  *
  * Created on February 8, 2002, 1:09 PM
@@ -14,11 +14,6 @@
  */
                                       
 // Not all of these are probably necessary.
-import java.awt.*;
-import java.util.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.net.*;
 
 /**
  *  This class is the system's Testing Kernel.  For now it is hard 

@@ -1,4 +1,4 @@
-/*
+package Game;/*
 
  * PlayCheckers.java
 
@@ -42,7 +42,7 @@ class PlayCheckers{
 	
 	Driver theDriver = new Driver();
 	
-	Firstscreen first = new Firstscreen( theDriver.getFacade() );
+	FirstScreen first = new FirstScreen( theDriver.getFacade() );
 	first.show();
 	
     }

@@ -1,15 +1,18 @@
-/*
- * Firstscreen.java
+package Game;/*
+ * FirstScreen.java
  *
  *  * Version:
- *   $Id: Firstscreen.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
+ *   $Id: FirstScreen.java,v 1.1 2002/10/22 21:12:52 se362 Exp $
  *
  * Revisions:
- *   $Log: Firstscreen.java,v $
+ *   $Log: FirstScreen.java,v $
  *   Revision 1.1  2002/10/22 21:12:52  se362
  *   Initial creation of case study
  *
  */
+
+import GameTypeState.GameState;
+import GameTypeState.LocalGameState;
 
 import java.net.*;
 import javax.swing.*;
@@ -20,10 +23,10 @@ import java.awt.*;
  * @author
  */
 
-public class Firstscreen extends JFrame implements ActionListener {
+public class FirstScreen extends JFrame implements ActionListener {
 
     Facade theFacade;
-    Secondscreen next;
+    SecondScreen next;
 
     // Variables declaration - do not modify
     private JRadioButton LocalGameButton;
@@ -35,19 +38,25 @@ public class Firstscreen extends JFrame implements ActionListener {
     private JButton CancelButton;
     private JLabel IPExampleLabel;
     private ButtonGroup gameModes;
+
+    private GameState gameState;
+    private LocalGameState localGameState;
     // End of variables declaration
 
-
     /**
-     * Creates new form Firstscreen
+     * Creates new form FirstScreen
      *
      * @param facade a facade object for the GUI to interact with
      */
 
-    public Firstscreen(Facade facade) {
+    public FirstScreen(Facade facade) {
 
         super("First screen");
         theFacade = facade;
+
+        localGameState = new LocalGameState(this);
+        gameState = localGameState;
+
         initComponents();
         pack();
     }
@@ -199,7 +208,8 @@ public class Firstscreen extends JFrame implements ActionListener {
             if ((e.getActionCommand()).equals("join")) {
                 IPField.setEnabled(true);
             } else if ((e.getActionCommand()).equals("local")) {
-                IPField.setEnabled(false);
+                gameState = localGameState;
+                localGameState.setIPField();
             } else if ((e.getActionCommand()).equals("host")) {
                 IPField.setEnabled(false);
 
@@ -214,17 +224,8 @@ public class Firstscreen extends JFrame implements ActionListener {
 
                 //if check to see of the local radio button is selected
                 if (tempButton.getActionCommand().equals("local")) {
-
-                    //set up a local game
-                    theFacade.setGameMode(theFacade.LOCALGAME);
-
-                    theFacade.createPlayer(1, theFacade.LOCALGAME);
-                    theFacade.createPlayer(2, theFacade.LOCALGAME);
-
-                    //hide the Firstscreen, make a Secondscreen and show it
-                    this.hide();
-                    next = new Secondscreen(theFacade, this, theFacade.LOCALGAME);
-                    next.show();
+                    System.out.println(gameState);
+                    gameState.doAction();
 
                     //if the host game button is selected
                 } else if (tempButton.getActionCommand().equals("host")) {
@@ -235,9 +236,9 @@ public class Firstscreen extends JFrame implements ActionListener {
                     theFacade.createPlayer(1, theFacade.HOSTGAME);
                     theFacade.createPlayer(2, theFacade.HOSTGAME);
 
-                    //hide the Firstscreen, make the Secondscreen and show it
+                    //hide the FirstScreen, make the SecondScreen and show it
                     this.hide();
-                    next = new Secondscreen(theFacade, this, theFacade.HOSTGAME);
+                    next = new SecondScreen(theFacade, this, theFacade.HOSTGAME);
                     next.show();
 
                     //if the join game button is selected
@@ -257,9 +258,9 @@ public class Firstscreen extends JFrame implements ActionListener {
                         //set the host
                         theFacade.setHost(address);
 
-                        //hide the Firstscreen, make and show the Second screen
+                        //hide the FirstScreen, make and show the Second screen
                         this.hide();
-                        next = new Secondscreen(theFacade, this, theFacade.CLIENTGAME);
+                        next = new SecondScreen(theFacade, this, theFacade.CLIENTGAME);
                         next.show();
 
                         //catch any exceptions
@@ -285,4 +286,11 @@ public class Firstscreen extends JFrame implements ActionListener {
 
     }//end of actionPerformed
 
-}//Firstscreen.java
+    public Facade getTheFacade() {
+        return theFacade;
+    }
+
+    public JTextField getIPField() {
+        return IPField;
+    }
+}//FirstScreen.java

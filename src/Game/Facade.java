@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * Facade.java
  * <p>
  * Version

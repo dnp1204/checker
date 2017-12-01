@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * Move.java
  *
  * Version:
@@ -10,9 +10,6 @@
  *    Initial creation of case study
  *
  */
-
-import java.util.*;
-import java.io.*;
 
 /**
  * An object representation of a move.

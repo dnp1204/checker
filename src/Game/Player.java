@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * Player.java
  * <p>
  * Version:

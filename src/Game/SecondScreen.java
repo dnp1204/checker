@@ -1,11 +1,11 @@
-/*
- * Secondscreen.java
+package Game;/*
+ * SecondScreen.java
  *
  * Version:
- *   $Id: Secondscreen.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
+ *   $Id: SecondScreen.java,v 1.1 2002/10/22 21:12:53 se362 Exp $
  *
  * Revisions:
- *   $Log: Secondscreen.java,v $
+ *   $Log: SecondScreen.java,v $
  *   Revision 1.1  2002/10/22 21:12:53  se362
  *   Initial creation of case study
  *
@@ -25,11 +25,11 @@ import javax.swing.event.*;
  * @author
  * 
  */
-public class Secondscreen extends JFrame
+public class SecondScreen extends JFrame
     implements ActionListener, ChangeListener {
     
     private Facade theFacade;
-    private Firstscreen theFirst;
+    private FirstScreen theFirst;
     private int gameType;
     
     // Variables declaration
@@ -49,15 +49,15 @@ public class Secondscreen extends JFrame
 	
     /**
      * 
-     * Creates new Secondscreen 
+     * Creates new SecondScreen
      *
      *@param f the facade getting passed to to set options
-     *@param first the Firstscreen object that ceated this window
+     *@param first the FirstScreen object that ceated this window
      *@param type the type of game 
      * 
      */
     
-    public Secondscreen( Facade f, Firstscreen first, int type ) {
+    public SecondScreen(Facade f, FirstScreen first, int type ) {
 
         super( "Second Screen" );
         theFacade = f;
@@ -363,4 +363,4 @@ public class Secondscreen extends JFrame
 	System.exit(0);
     }
   
-}//Secondscreen
+}//SecondScreen

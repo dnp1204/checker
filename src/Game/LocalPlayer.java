@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * LocalPlayer.java
  * <p>
  * Version:

@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * KingPiece.java
  *
  * Version:
@@ -11,7 +11,6 @@
  *
  */
 import java.awt.*;
-import java.util.*;
 
 /**
  * This is a class representing a king piece (a piece that has been kinged)

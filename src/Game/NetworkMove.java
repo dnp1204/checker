@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * NetworkMove.java
  *
  * Version:
@@ -11,7 +11,6 @@
  *
  */
 
-import java.util.*;
 import java.io.*;
 
 /**

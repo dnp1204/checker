@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * Board.java
  *
  * Version:

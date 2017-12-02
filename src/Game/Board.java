@@ -203,23 +203,18 @@ public class Board {
             // check if there is piece at space position
             // if there is none, return null
             // else return the piece at that position
-
             if (occupied(space)) {
 
                 returnValue = pieces[space];
 
             }
-
         } catch (ArrayIndexOutOfBoundsException e) {
-
+            System.out.println(e.getMessage());
 
         } catch (NullPointerException e) {
-
-
+            System.out.println(e.getMessage());
         }
-
         return returnValue;
-
     }
 
 

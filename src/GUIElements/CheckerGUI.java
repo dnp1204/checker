@@ -17,6 +17,7 @@ package GUIElements;/*
 
 import Game.Board;
 import Game.Facade;
+import Game.Rules;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -32,6 +33,7 @@ public class CheckerGUI extends JFrame implements ActionListener {
 
     //the facade for the game
     private static Facade theFacade; //the facade
+    private Rules rules;
     private Vector possibleSquares = new Vector();  // a vector of the squares
     private int timeRemaining;  //the time remaining
 
@@ -61,6 +63,7 @@ public class CheckerGUI extends JFrame implements ActionListener {
         playerOnesName = makeShortName(name1);
         playerTwosName = makeShortName(name2);
         theFacade = facade;
+        rules = new Rules(theFacade.stateOfBoard(), theFacade.theDriver);
         register();
 
         initComponents();
@@ -115,12 +118,12 @@ public class CheckerGUI extends JFrame implements ActionListener {
 
             jButton.setPreferredSize(new Dimension(80, 80));
             jButton.setActionCommand(Integer.toString(i));
+            // swap color
             if (i % 8 == 0) {
                 Color temp = evenColor;
                 evenColor = oddColor;
                 oddColor = temp;
             }
-
             if (i % 2 == 0) {
                 jButton.setBackground(evenColor);
             } else {
@@ -227,7 +230,7 @@ public class CheckerGUI extends JFrame implements ActionListener {
     /**
      * Exit the Application
      *
-     * @param the window event
+     * @param evt
      */
     private void exitForm(java.awt.event.WindowEvent evt) {
         theFacade.pressQuit();
@@ -304,7 +307,6 @@ public class CheckerGUI extends JFrame implements ActionListener {
                     throw new Exception("unknown message from facade");
                 }
             }
-            //catch various Exceptions
         } catch (NumberFormatException excep) {
             System.err.println(
                     "GUI exception: Error converting a string to a number");
@@ -317,98 +319,32 @@ public class CheckerGUI extends JFrame implements ActionListener {
                     + except.getMessage());
             except.printStackTrace();
         }
-
     }
 
 
     /**
      * Updates the GUI reading the pieces in the board
      * Puts pieces in correct spaces, updates whos turn it is
-     *
-     * @param the board
      */
 
     private void update() {
 
-
-        if (checkEndConditions()) {
-
+        if (rules.checkEndConditions()) {
             theFacade.showEndGame(" ");
         }
+
         //the board to read information from
         Board board = theFacade.stateOfBoard();
+
         //a temp button to work with
-        JButton temp = new JButton();
+        JButton temp;
 
         //go through the board
         for (int i = 1; i < board.sizeOf(); i++) {
 
             // if there is a piece there
             if (board.occupied(i)) {
-
-                //check to see if color is blue
-                if (board.colorAt(i) == Color.blue) {
-
-                    //if there is a  single piece there
-                    if ((board.getPieceAt(i)).getType() == board.SINGLE) {
-
-                        //show a blue single piece in that spot board
-                        temp = (JButton) possibleSquares.get(i);
-
-                        //get the picture from the web
-                        try {
-                            temp.setIcon(
-                                    new ImageIcon(new URL("file:BlueSingle.gif")));
-                        } catch (MalformedURLException e) {
-                            System.out.println(e.getMessage());
-                        }
-
-                        //if there is a kinged piece there
-                    } else if ((board.getPieceAt(i)).getType() == board.KING) {
-
-                        //show a blue king piece in that spot board
-                        temp = (JButton) possibleSquares.get(i);
-
-                        //get the picture formt the web
-                        try {
-                            temp.setIcon(
-                                    new ImageIcon(new URL("file:BlueKing.gif")));
-                        } catch (Exception e) {
-                        }
-
-                    }
-
-                    //check to see if the color is white
-                } else if (board.colorAt(i) == Color.white) {
-
-                    //if there is a single piece there
-                    if ((board.getPieceAt(i)).getType() == board.SINGLE) {
-
-                        //show a blue single piece in that spot board
-                        temp = (JButton) possibleSquares.get(i);
-
-                        //get the picture from the web
-                        try {
-                            temp.setIcon(
-                                    new ImageIcon(new URL("file:WhiteSingle.gif")));
-                        } catch (Exception e) {
-                        }
-
-                        //if there is a kinged piece there
-                    } else if ((board.getPieceAt(i)).getType() == board.KING) {
-
-                        //show a blue king piece in that spot board
-                        temp = (JButton) possibleSquares.get(i);
-
-                        //get the picture from the web
-                        try {
-                            temp.setIcon(
-                                    new ImageIcon(new URL("file:WhiteKing.gif")));
-                        } catch (Exception e) {
-                        }
-                    }
-                    //if there isnt a piece there
-                }
+                updatePiece(board, i);
             } else {
                 //show no picture
                 temp = (JButton) possibleSquares.get(i);
@@ -428,55 +364,56 @@ public class CheckerGUI extends JFrame implements ActionListener {
         }
     }
 
-    /**
-     * Checks the ending condotions for the game
-     * see if there a no pieces left
-     *
-     * @return the return value for the method
-     * true if the game should end
-     * false if game needs to continue
-     */
+    private void updatePiece(Board board, int index) {
+        JButton temp;
 
-    public boolean checkEndConditions() {
+        //check to see if color is blue
+        if (board.colorAt(index) == Color.blue) {
 
-        //the return value
-        boolean retVal = false;
-        try {
-            //the number of each piece left
-            int whitesGone = 0, bluesGone = 0;
+            //if there is a  single piece there
+            if ((board.getPieceAt(index)).getType() == board.SINGLE) {
 
-            //the board to work with
-            Board temp = theFacade.stateOfBoard();
+                //show a blue single piece in that spot board
+                temp = (JButton) possibleSquares.get(index);
+                updateImageIcon(temp, "file:BlueSingle.gif");
 
-            //go through all the spots on the board
-            for (int i = 1; i < temp.sizeOf(); i++) {
-                //if there is a piece there
-                if (temp.occupied(i)) {
-                    //if its a blue piece there
-                    if ((temp.getPieceAt(i)).getColor() == Color.blue) {
-                        // increment number of blues
-                        bluesGone++;
-                        //if the piece is white
-                    } else if ((temp.getPieceAt(i)).getColor()
-                            == Color.white) {
-                        //increment number of whites
-                        whitesGone++;
-                    }
-                }
-            }//end of for loop
+                //if there is a king piece there
+            } else if ((board.getPieceAt(index)).getType() == board.KING) {
 
-            //if either of the number are 0
-            if (whitesGone == 0 || bluesGone == 0) {
-                retVal = true;
+                //show a blue king piece in that spot board
+                temp = (JButton) possibleSquares.get(index);
+                updateImageIcon(temp, "file:BlueKing.gif");
             }
 
-        } catch (Exception e) {
+            //check to see if the color is white
+        } else if (board.colorAt(index) == Color.white) {
 
-            System.err.println(e.getMessage());
+            //if there is a single piece there
+            if ((board.getPieceAt(index)).getType() == board.SINGLE) {
 
+                //show a white single piece in that spot board
+                temp = (JButton) possibleSquares.get(index);
+                updateImageIcon(temp, "file:WhiteSingle.gif");
+
+                //if there is a king piece there
+            } else if ((board.getPieceAt(index)).getType() == board.KING) {
+
+                //show a white king piece in that spot board
+                temp = (JButton) possibleSquares.get(index);
+                updateImageIcon(temp, "file:WhiteKing.gif");
+            }
+            //if there isnt a piece there
         }
-        return retVal;
+    }
 
-    }//checkEndConditions
+    private void updateImageIcon(JButton temp, String fileName) {
+        //get the picture from the web
+        try {
+            temp.setIcon(
+                    new ImageIcon(new URL(fileName)));
+        } catch (MalformedURLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 }//checkerGUI.java

@@ -158,7 +158,6 @@ public class Facade extends Component {
         // Alert players and the kernel that one person
         // has quit calls quitGame() for both players
         theDriver.endInQuit(activePlayer);
-
     }
 
     /**
@@ -169,7 +168,6 @@ public class Facade extends Component {
         // Alerts both players and the kernel that one person
         // has offered a draw calls offerDraw() on both players
         activePlayer.offerDraw(activePlayer);
-
     }
 
     /**

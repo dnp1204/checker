@@ -993,7 +993,51 @@ public class Rules {
         }
 
         return retval;
-
     }
+
+    /**
+     * Checks the ending conditions for checker gui the game
+     * see if there a no pieces left
+     *
+     * @return the return value for the method
+     * true if the game should end
+     * false if game needs to continue
+     */
+    public boolean checkEndConditions() {
+
+        //the return value
+        boolean retVal = false;
+        try {
+            //the number of each piece left
+            int whitesGone = 0, bluesGone = 0;
+
+            //go through all the spots on the board
+            for (int i = 1; i < theBoard.sizeOf(); i++) {
+                //if there is a piece there
+                if (theBoard.occupied(i)) {
+                    //if its a blue piece there
+                    if ((theBoard.getPieceAt(i)).getColor() == Color.blue) {
+                        // increment number of blues
+                        bluesGone++;
+                        //if the piece is white
+                    } else if ((theBoard.getPieceAt(i)).getColor()
+                            == Color.white) {
+                        //increment number of whites
+                        whitesGone++;
+                    }
+                }
+            }   //end of for loop
+
+            //if either of the number are 0
+            if (whitesGone == 0 || bluesGone == 0) {
+                retVal = true;
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return retVal;
+
+    }//checkEndConditions
 
 }//Rules.java

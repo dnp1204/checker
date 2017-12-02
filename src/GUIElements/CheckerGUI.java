@@ -31,9 +31,8 @@ import java.net.*;
 public class CheckerGUI extends JFrame implements ActionListener {
 
     //the facade for the game
-
     private static Facade theFacade; //the facade
-    private Vector possibleSquares = new Vector();  //a vector of the squares
+    private Vector possibleSquares = new Vector();  // a vector of the squares
     private int timeRemaining;  //the time remaining
 
     private JLabel PlayerOneLabel;
@@ -45,7 +44,7 @@ public class CheckerGUI extends JFrame implements ActionListener {
     private JLabel warningLabel, whosTurnLabel;
 
     //the names and time left
-    private static String playerOnesName = "", playerTwosName = "", timeLeft = "";
+    private String playerOnesName = "", playerTwosName = "", timeLeft = "";
 
     /**
      * Constructor, creates the GUI and all its components
@@ -59,22 +58,8 @@ public class CheckerGUI extends JFrame implements ActionListener {
 
         super("Checkers");
 
-        //long names mess up the way the GUI displays
-        //this code shortens the name if it is too long
-        String nameOne = "", nameTwo = "";
-        if (name1.length() > 7) {
-            nameOne = name1.substring(0, 7);
-        } else {
-            nameOne = name1;
-        }
-        if (name2.length() > 7) {
-            nameTwo = name2.substring(0, 7);
-        } else {
-            nameTwo = name2;
-        }
-
-        playerOnesName = nameOne;
-        playerTwosName = nameTwo;
+        playerOnesName = makeShortName(name1);
+        playerTwosName = makeShortName(name2);
         theFacade = facade;
         register();
 
@@ -82,21 +67,27 @@ public class CheckerGUI extends JFrame implements ActionListener {
         pack();
         update();
     }
-    
+
+
+    /*
+     * This method to make shorter name if it is longer than 7
+     */
+    private String makeShortName(String name) {
+        if (name.length() > 7) {
+            return name.substring(0, 7);
+        }
+        return name;
+    }
     
     /*
      * This method handles setting up the timer
      */
 
     private void register() {
-
         try {
             theFacade.addActionListener(this);
-
         } catch (Exception e) {
-
             System.err.println(e.getMessage());
-
         }
     }
 
@@ -240,7 +231,6 @@ public class CheckerGUI extends JFrame implements ActionListener {
      */
     private void exitForm(java.awt.event.WindowEvent evt) {
         theFacade.pressQuit();
-
     }
 
     /**
@@ -250,7 +240,6 @@ public class CheckerGUI extends JFrame implements ActionListener {
      */
 
     public void actionPerformed(ActionEvent e) {
-
         try {
             //if a square gets clicked
             if (e.getActionCommand().equals("1") ||
@@ -436,39 +425,6 @@ public class CheckerGUI extends JFrame implements ActionListener {
             PlayerOneLabel.setForeground(Color.red);
             playerTwoLabel.setForeground(Color.black);
             whosTurnLabel.setText(playerOnesName + "'s turn");
-        }
-    }
-
-    /**
-     * Update the timer
-     */
-
-    public void updateTime() {
-
-        if (theFacade.getTimer() > 0) {
-
-            // if the time has run out but not in warning time yet
-            // display warning and count warning time
-            if (timeRemaining <= 0 && (warningLabel.getText()).equals("")) {
-                timeRemaining = theFacade.getTimerWarning();
-                warningLabel.setText("Time is running out!!!");
-
-                // if the time has run out and it was in warning time quit game
-            } else if (timeRemaining <= 0 &&
-                    !(warningLabel.getText()).equals("")) {
-
-                theFacade.pressQuit();
-
-            } else {
-
-                timeRemaining--;
-
-            }
-
-            secondsLeftLabel.setText(timeRemaining + " sec.");
-
-        } else {
-            secondsLeftLabel.setText("*****");
         }
     }
 

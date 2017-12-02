@@ -50,7 +50,7 @@ public class Facade extends Component {
      * Constructor for the facade.  Initializes the data members.
      *
      * @param newBoard  Board  object Facade will manipulate.
-     * @param newDriver Driver object that will communicate 
+     * @param newDriver Driver object that will communicate
      *                  with the Facade.
      */
     public Facade(Board newBoard, Driver newDriver) {
@@ -65,7 +65,6 @@ public class Facade extends Component {
      * ( e.g. 1 for player 1 )
      *
      * @return int   The number of the player whose turn it is.
-     *
      * @pre game is in progress
      */
     public int whosTurn() {
@@ -93,14 +92,13 @@ public class Facade extends Component {
     }
 
     /**
-     *
-     * This method should be called to select a space on the board, 
-     * either as the starting point or the ending point for a move.  
-     * The Facade will interpret this selection and send a move on to 
+     * This method should be called to select a space on the board,
+     * either as the starting point or the ending point for a move.
+     * The Facade will interpret this selection and send a move on to
      * the kernel when two spaces have been selected.
      *
-     * @param space an int indicating which space to move to, 
-     *              according to the standard checkers numbering 
+     * @param space an int indicating which space to move to,
+     *              according to the standard checkers numbering
      *              scheme, left to right and top to bottom.
      */
     public void selectSpace(int space) {
@@ -130,7 +128,7 @@ public class Facade extends Component {
     }
 
     /**
-     * Send a move on to the kernel, i.e. call makeMove() in 
+     * Send a move on to the kernel, i.e. call makeMove() in
      * the LocalPlayer and inform it whose turn it is.
      *
      * @pre startSpace is defined
@@ -152,7 +150,7 @@ public class Facade extends Component {
     }
 
     /**
-     * Tell the kernel that the user has quit/resigned the game 
+     * Tell the kernel that the user has quit/resigned the game
      * or quit the program
      */
     public void pressQuit() {
@@ -176,7 +174,6 @@ public class Facade extends Component {
 
     /**
      * Tell the kernel that the user has accepted a draw.
-     *
      */
     public void pressAcceptDraw() {
 
@@ -185,12 +182,11 @@ public class Facade extends Component {
     }
 
     /**
-     * Given a player number, returns the name associated 
+     * Given a player number, returns the name associated
      * with that number.
      *
-     * @param  playerNum the number of a player
+     * @param playerNum the number of a player
      * @return string    the name associated with playerNum
-     *
      * @pre playerNum is a valid player number
      */
     public String getPlayerName(int playerNum) {
@@ -219,12 +215,11 @@ public class Facade extends Component {
     }
 
     /**
-     * Tell the kernel to associate the given name with the 
+     * Tell the kernel to associate the given name with the
      * given player number.
      *
      * @param playerNum the number of a player
      * @param name      the name that player should be given
-     *
      * @pre playerNum is a valid player number
      */
     public void setPlayerName(int playerNum, String name) {
@@ -233,18 +228,17 @@ public class Facade extends Component {
 
 
     /**
-     * Tell the kernel to set a time limit for each turn.  The time 
-     * limit, i.e. the amount of time a player has during his turn 
-     * before he is given a time warning, is specified by the parameter 
+     * Tell the kernel to set a time limit for each turn.  The time
+     * limit, i.e. the amount of time a player has during his turn
+     * before he is given a time warning, is specified by the parameter
      * called time, in minutes.
-     *
-     * Tell the kernel to set a time limit for each turn.   The warning 
-     * time, i.e. the amount of time a player has during his turn after 
-     * he is given a time warning, is specified by the parameter called 
+     * <p>
+     * Tell the kernel to set a time limit for each turn.   The warning
+     * time, i.e. the amount of time a player has during his turn after
+     * he is given a time warning, is specified by the parameter called
      * time, in minutes.
      *
      * @param time the time limit for each turn, in seconds.
-     *
      * @pre 10 <= time <= 300.
      */
     public void setTimer(int time, int warning) throws Exception {
@@ -263,11 +257,10 @@ public class Facade extends Component {
     }
 
     /**
-     * Tell the kernel to connect to the specified host to 
+     * Tell the kernel to connect to the specified host to
      * start a network game.
      *
      * @param host
-     *
      * @pre host != null
      */
     public void setHost(URL host) {
@@ -279,11 +272,10 @@ public class Facade extends Component {
     }
 
     /**
-     * Display to local players that the game has ended with 
+     * Display to local players that the game has ended with
      * the message provided.
      *
      * @param message
-     *
      * @post the game ends
      */
     public void showEndGame(String message) {
@@ -296,9 +288,7 @@ public class Facade extends Component {
      * Set the game mode: a local game or a network game
      *
      * @param the mode of the game
-     *
      * @pre we are in the setup for a game
-     *
      */
     public void setGameMode(int mode) throws Exception {
         // Check to make sure that mode is a legal value
@@ -315,10 +305,8 @@ public class Facade extends Component {
     /**
      * Returns the timer value, how long each player get to take a turn
      *
-     * @return the amount of time each player has for a turn 
-     *
+     * @return the amount of time each player has for a turn
      * @pre there has been a timer set for the current game
-     *
      */
     public int getTimer() {
         int retval = 0;
@@ -333,12 +321,11 @@ public class Facade extends Component {
     }
 
     /**
-     * Returns the amount of time chosen for a warning that a player is 
+     * Returns the amount of time chosen for a warning that a player is
      * near the end of his/her turn.
      *
      * @return the amount of warning time a player has
-     *
-     * @pre there has been a timer set for the current game  
+     * @pre there has been a timer set for the current game
      */
     public int getTimerWarning() {
         int retval = -1;
@@ -363,7 +350,7 @@ public class Facade extends Component {
     /**
      * Called when both players have clicked OK on the end game dialog box
      *
-     * @post the game has ended 
+     * @post the game has ended
      */
     public void endGameAccepted() {
 
@@ -375,7 +362,6 @@ public class Facade extends Component {
      * Notifies everything of the sta eof the board
      *
      * @return a Board object which is the state of the board
-     *
      */
     public Board stateOfBoard() {
         // Return the board so GUI can go through and update itself
@@ -391,7 +377,6 @@ public class Facade extends Component {
 
     /**
      * Generates an action. This is inhereted from Component
-     *
      */
     public void generateActionPerformed() {
 

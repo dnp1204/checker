@@ -19,12 +19,11 @@ import java.awt.*;
 
 
 /**
- *  This class represents the board on which checkers is being played.
- *  The board holds a collection of pieces.
+ * This class represents the board on which checkers is being played.
+ * The board holds a collection of pieces.
  *
- *  @invariant all variables have valid values
- *
- *  @author
+ * @author
+ * @invariant all variables have valid values
  */
 public class Board {
 
@@ -71,7 +70,6 @@ public class Board {
         pieces[58] = new SinglePiece(Color.white);
         pieces[60] = new SinglePiece(Color.white);
         pieces[62] = new SinglePiece(Color.white);
-
     }
 
 
@@ -79,8 +77,7 @@ public class Board {
      * Moves the piece at the start position to the end position
      *
      * @param start - current location of the piece
-     * @param end - the position where piece is moved
-     *
+     * @param end   - the position where piece is moved
      * @return -1 if there is a piece in the end position
      */
     public int movePiece(int start, int end) {
@@ -115,7 +112,6 @@ public class Board {
      * This method checks if the space on the board contains a piece
      *
      * @param space - the space that needs to be checked
-     *
      * @return true or false depending on the situation
      */
     public boolean occupied(int space) {
@@ -133,7 +129,6 @@ public class Board {
         }
 
         return returnValue;
-
     }
 
 
@@ -173,7 +168,6 @@ public class Board {
      * This method returns the color of the piece at a certain space
      *
      * @param space - the position of the piece on the board
-     *
      * @return the color of this piece
      */
     public Color colorAt(int space) {
@@ -199,7 +193,6 @@ public class Board {
      * This method returns the piece at the certain position
      *
      * @param space - the space of the piece
-     *
      * @return the piece at that space
      */
     public Piece getPieceAt(int space) {
@@ -234,9 +227,8 @@ public class Board {
      * This method returns if there is a piece of color on the board
      *
      * @param color - the color of the piece
-     *
      * @return true if there is a piece of color left on the board
-     *				else return false
+     * else return false
      */
     public boolean hasPieceOf(Color color) {
 
@@ -256,9 +248,7 @@ public class Board {
             }
         }
 
-
         return returnValue;
-
     }
 
 

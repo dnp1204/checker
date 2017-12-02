@@ -336,20 +336,9 @@ public class CheckerGUI extends JFrame implements ActionListener {
         //the board to read information from
         Board board = theFacade.stateOfBoard();
 
-        //a temp button to work with
-        JButton temp;
-
         //go through the board
         for (int i = 1; i < board.sizeOf(); i++) {
-
-            // if there is a piece there
-            if (board.occupied(i)) {
-                updatePiece(board, i);
-            } else {
-                //show no picture
-                temp = (JButton) possibleSquares.get(i);
-                temp.setIcon(null);
-            }
+            updatePiece(board, i);
         }
 
         //this code updates whos turn it is
@@ -364,45 +353,42 @@ public class CheckerGUI extends JFrame implements ActionListener {
         }
     }
 
+    /*
+     * Helper method to update the image icon for JButton if there is
+     * a piece there. Otherwise, show no picture
+     */
     private void updatePiece(Board board, int index) {
-        JButton temp;
+        // if there is a piece there
+        if (board.occupied(index)) {
+            //check to see if color is blue
+            if (board.colorAt(index) == Color.blue) {
+                checkTypePieceToUpdate(board, index, "Blue");
 
-        //check to see if color is blue
-        if (board.colorAt(index) == Color.blue) {
-
-            //if there is a  single piece there
-            if ((board.getPieceAt(index)).getType() == board.SINGLE) {
-
-                //show a blue single piece in that spot board
-                temp = (JButton) possibleSquares.get(index);
-                updateImageIcon(temp, "file:BlueSingle.gif");
-
-                //if there is a king piece there
-            } else if ((board.getPieceAt(index)).getType() == board.KING) {
-
-                //show a blue king piece in that spot board
-                temp = (JButton) possibleSquares.get(index);
-                updateImageIcon(temp, "file:BlueKing.gif");
+                //check to see if the color is white
+            } else if (board.colorAt(index) == Color.white) {
+                checkTypePieceToUpdate(board, index, "White");
             }
+        } else {
+            //show no picture if there isn't a piece there
+            JButton temp = (JButton) possibleSquares.get(index);
+            temp.setIcon(null);
+        }
+    }
 
-            //check to see if the color is white
-        } else if (board.colorAt(index) == Color.white) {
+    private void checkTypePieceToUpdate(Board board, int index, String color) {
+        JButton temp = (JButton) possibleSquares.get(index);
 
-            //if there is a single piece there
-            if ((board.getPieceAt(index)).getType() == board.SINGLE) {
+        //if there is a single piece there
+        if ((board.getPieceAt(index)).getType() == board.SINGLE) {
 
-                //show a white single piece in that spot board
-                temp = (JButton) possibleSquares.get(index);
-                updateImageIcon(temp, "file:WhiteSingle.gif");
+            //show a white single piece in that spot board
+            updateImageIcon(temp, "file:" + color + "Single.gif");
 
-                //if there is a king piece there
-            } else if ((board.getPieceAt(index)).getType() == board.KING) {
+            //if there is a king piece there
+        } else if ((board.getPieceAt(index)).getType() == board.KING) {
 
-                //show a white king piece in that spot board
-                temp = (JButton) possibleSquares.get(index);
-                updateImageIcon(temp, "file:WhiteKing.gif");
-            }
-            //if there isnt a piece there
+            //show a white king piece in that spot board
+            updateImageIcon(temp, "file:" + color + "King.gif");
         }
     }
 

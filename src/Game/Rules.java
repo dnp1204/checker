@@ -334,7 +334,9 @@ public class Rules {
 
             // Check to see if piece is adjacent to piece of opposite color.
             // If there are, add possible end locations to vector.
-            checkoppcoloradj(i,loop,piecePosition,adjacentSpace,endSpace,aPiece,player,possibleJumps);
+            for (; i < loop; i++) {
+                checkAdjSpace(piecePosition,adjacentSpace,aPiece,endSpace,player,possibleJumps,i);
+            }
         }
         // If piece is white...
         else if (player.getColor() == Color.white) {
@@ -389,41 +391,6 @@ public class Rules {
         }
     }
 
-    private void checkoppcoloradj(int i, int loop, int piecePosition, boolean adjacentSpace,
-                                     boolean endSpace, Piece aPiece, Player player, Vector possibleJumps){
-        for (; i < loop; i++) {
-            if (!leftWallPieces.contains(new Integer(piecePosition +
-                    adjacentSpots[i])) &&
-                    !rightWallPieces.contains(new Integer(piecePosition +
-                            adjacentSpots[i]))) {
-                adjacentSpace = theBoard.occupied(piecePosition +
-                        adjacentSpots[i]);
-                aPiece = theBoard.getPieceAt(piecePosition +
-                        adjacentSpots[i]);
-
-                if (adjacentSpace &&
-                        (aPiece.getColor() != player.getColor())) {
-                    // Check space diagonal to the piece to see if it is empty.
-                    endSpace = theBoard.occupied(piecePosition +
-                            secondSpots[i]);
-                    /// If the space is empty, the jump is valid and it is
-                    // added to vector of possible jumps.
-                    if (!endSpace) {
-                        possibleJumps.addElement(new Integer(piecePosition
-                                + secondSpots[i]));
-                        // If the player has selected to make this jump,
-                        // let other methods access the piece to be jumped
-                        if (currentMove.endLocation() == piecePosition +
-                                secondSpots[i]) {
-                            middle = piecePosition + adjacentSpots[i];
-                        }
-                    }
-                }
-                adjacentSpace = false;
-            } // end for
-        } // end if (the piece is not a king)
-    }
-
     /**
      * After a piece has made a jump, check to see if another jump can
      * be made with the same piece.
@@ -455,33 +422,7 @@ public class Rules {
                 // Check to see if piece is adjacent to piece of opposite color.
                 // If there are, add possible end locations to vector.
                 for (int i = 0; i <= adjacentSpots.length; i++) {
-                    if (!leftWallPieces.contains(piecePosition + adjacentSpots[i]) &&
-                            !rightWallPieces.contains(piecePosition + adjacentSpots[i])) {
-
-                        adjacentSpace = theBoard.occupied(piecePosition +
-                                adjacentSpots[i]);
-                        aPiece = theBoard.getPieceAt(piecePosition +
-                                adjacentSpots[i]);
-
-                        if (adjacentSpace && (aPiece.getColor() !=
-                                player.getColor())) {
-
-                            // Check space diagonal to piece to see if its empty.
-                            endSpace = theBoard.occupied(piecePosition +
-                                    secondSpots[i]);
-
-                            // If space is empty, a multiple jump must be made.
-                            if (!endSpace) {
-
-                                retval = true;
-
-                            }
-
-                        }
-
-                        adjacentSpace = false;
-
-                    } // end for
+                    retval = checkOthAdjSpace(piecePosition,adjacentSpace,aPiece,endSpace,player,possibleJumps,i,retval);
                 }
             }
             // Else the piece is regular.

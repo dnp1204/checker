@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * Timer.java
  * <p>
  * Version:
@@ -11,12 +11,11 @@
  */
 
 /**
- *  This timer runs on the separate thread and during
- *  the simulation tells fasade to update the warning and normal times 
+ * This timer runs on the separate thread and during
+ * the simulation tells fasade to update the warning and normal times
  *
- *  @invariant all variables have valid values
- *
- *  @author
+ * @author
+ * @invariant all variables have valid values
  */
 
 public class Timer extends Thread {

@@ -1,4 +1,4 @@
-/**
+package Pieces; /**
  * SinglePiece.java
  *
  * Version:
@@ -11,8 +11,9 @@
  *
  */
 
+import Pieces.Piece;
+
 import java.awt.*;
-import java.util.*;
 
 /**
  * This is a class representing a single piece (a piece that has not been

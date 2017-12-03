@@ -1,4 +1,4 @@
-/**
+package Pieces; /**
  * KingPiece.java
  *
  * Version:
@@ -10,8 +10,8 @@
  *   Initial creation of case study
  *
  */
+
 import java.awt.*;
-import java.util.*;
 
 /**
  * This is a class representing a king piece (a piece that has been kinged)

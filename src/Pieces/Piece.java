@@ -1,4 +1,4 @@
-/**
+package Pieces; /**
  * Piece.java
  *
  * Version:
@@ -43,7 +43,7 @@ public abstract class Piece {
     * 
     * @return the type of the piece
     */
-   abstract int getType();
+   abstract public int getType();
    
    /**
     * This method returns the color of this piece

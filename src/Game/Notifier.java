@@ -1,4 +1,4 @@
-/**
+package Game; /**
  * Notifier.java
  * <p>
  * Version:
@@ -14,11 +14,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- *
- *
- *  @invariant all variables have valid values
- *
- *  @author
+ * @author
+ * @invariant all variables have valid values
  */
 public class Notifier extends Component {
 

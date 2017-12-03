@@ -375,6 +375,10 @@ public class CheckerGUI extends JFrame implements ActionListener {
         }
     }
 
+    /*
+     * Helper method to check it is single piece or king piece to
+     * update image icon properly
+     */
     private void checkTypePieceToUpdate(Board board, int index, String color) {
         JButton temp = (JButton) possibleSquares.get(index);
 
@@ -392,6 +396,9 @@ public class CheckerGUI extends JFrame implements ActionListener {
         }
     }
 
+    /*
+     * Helper method to update image icon for piece
+     */
     private void updateImageIcon(JButton temp, String fileName) {
         //get the picture from the web
         try {

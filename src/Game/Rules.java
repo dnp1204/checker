@@ -44,6 +44,8 @@ public class Rules {
     private Vector rightWallPieces = new Vector(); // Positions of the right
     // wall spaces.
 
+    private int BOARD_SIZE = 64;
+
     /**
      * The constructor for the Rules class.
      *
@@ -87,33 +89,29 @@ public class Rules {
             int pieceType = theBoard.getPieceAt(start).getType();// Type of
             // the piece.
             // Contains any possible moves if the piece is on the wall.
-            Vector wallMoves = new Vector();
-            Vector pieces = new Vector();
-            Vector tempVec = new Vector();
-            Vector startVec = new Vector();
-            //Vector possibleJumps = new Vector();
-            Vector possibleJumps = checkForPossibleJumps(start, pieceType,
-                    player);
+            Vector wallMoves = new Vector<>();
+            Vector<Integer> pieces = new Vector<>();
+            Vector tempVec = new Vector<>();
+            Vector<Integer> startVec = new Vector<>();
+            Vector<Integer> possibleJumps = checkForPossibleJumps(start, pieceType, player);
             // Check all pieces for jumps.
             //if ( player.getColor() == Color.white ) {
             //pieces = theBoard.whitePieces();
             //} else {
-            //pieces = theBoard.bluePieces();
+            //pieces = theBoard.bluePieces()    ;
             //}
 
             // For each piece of the current color, see if there are forced jumps.
-            for (int count = 1; count < 64; count++) {
+            for (int count = 1; count < BOARD_SIZE; count++)
                 if (theBoard.occupied(count)) {
                     if (theBoard.getPieceAt(count).getColor() == player.getColor()) {
                         tempVec = checkForPossibleJumps(count, pieceType, player);
                         if (!tempVec.isEmpty()) {
-                            startVec.addElement(new Integer(count));
+                            startVec.addElement(count);
                             possibleJumps.addAll(tempVec);
                         }
                     }
                 }
-
-            }
 
 
             // Only proceed if player is trying to move one of his own pieces
@@ -122,10 +120,10 @@ public class Rules {
                     theDriver.getOppositePlayer().getColor())) {
                 // If there is a possible jump it must be made so the end
                 // position must match one of the possible jumps.
-                if (startVec.contains(new Integer(start))) {
+                if (startVec.contains(start)) {
                     possibleJumps = checkForPossibleJumps(start, pieceType,
                             player);
-                    if (possibleJumps.contains(new Integer(end))) {
+                    if (possibleJumps.contains(end)) {
                         // Moves the piece
                         theBoard.movePiece(start, end);
                         // Remove the jumped piece
@@ -151,11 +149,10 @@ public class Rules {
 
                     // If the piece starts on a wall and it's end position is
                     // valid then the move is legal.
-                    if (leftWallPieces.contains(new Integer(start)) ||
-                            rightWallPieces.contains(new Integer(start))) {
+                    if (leftWallPieces.contains(start) || rightWallPieces.contains(start)) {
                         wallMoves.addAll(wallPieceMoves(start, false,
                                 pieceType, player));
-                        if (wallMoves.contains(new Integer(end))) {
+                        if (wallMoves.contains(end)) {
                             retval = true;
                         }
                     }
@@ -238,7 +235,7 @@ public class Rules {
         boolean done = false;
         int count = 1;
 
-        // Check all ppieces on the board until a move is found.
+        // Check all pieces on the board until a move is found.
         while (count < 64 && !done) {
             boolean temp = theBoard.occupied(count);
             if (temp) {
@@ -246,8 +243,7 @@ public class Rules {
                         player.getColor();
 
                 // Find pieces of the opposite color.
-                if (temp &&
-                        temp2) {
+                if (temp2) {
                     // If there are moves or jumps possible they will be in
                     // their respective vector.
                     int type = theBoard.getPieceAt(count).getType();
@@ -309,7 +305,7 @@ public class Rules {
      *
      *  @return possibleJumps which contains end positions of possible jumps.
      */
-    private Vector checkForPossibleJumps(int piecePosition, int pieceType,
+    private Vector<Integer> checkForPossibleJumps(int piecePosition, int pieceType,
                                          Player aPlayer) {
 
         Vector possibleJumps = new Vector();
@@ -430,8 +426,7 @@ public class Rules {
                     aPiece = theBoard.getPieceAt(piecePosition +
                             adjacentSpots[k]);
 
-                    if (adjacentSpace && (aPiece.getColor() !=
-                            player.getColor())) {
+                    if (adjacentSpace && (aPiece.getColor() != player.getColor())) {
                         // Check space diagonal to piece to see if it is empty.
                         endSpace = theBoard.occupied(piecePosition +
                                 secondSpots[k]);
@@ -465,9 +460,7 @@ public class Rules {
      *
      *  @pre A jump has been made.
      */
-    private boolean checkForOtherPossibleJump(int piecePosition,
-                                              int pieceType,
-                                              Player aPlayer) {
+    private boolean checkForOtherPossibleJump(int piecePosition, int pieceType, Player aPlayer) {
 
         boolean retval = false;
 

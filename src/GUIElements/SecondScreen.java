@@ -89,7 +89,7 @@ public class SecondScreen extends JFrame
         GridBagConstraints gridBagConstraints1;
         addWindowListener(new WindowAdapter() {
                               public void windowClosing(WindowEvent evt) {
-                                  exitForm(evt);
+                                  System.exit(0);
                               }
                           }
         );
@@ -262,7 +262,41 @@ public class SecondScreen extends JFrame
         }
     }
 
+    private void okCommand(){
 
+        //take note of all selections and go to game startup
+        if (playerOneField.isEnabled() && (playerOneField.getText()).equalsIgnoreCase("")) {
+            playerOneField.setText("player1");
+        }
+
+        if (playerTwoField.isEnabled() && playerTwoField.getText().equalsIgnoreCase("")) {
+            playerTwoField.setText("player2");
+        }
+        theFacade.setPlayerName(1, playerOneField.getText());
+        theFacade.setPlayerName(2, playerTwoField.getText());
+
+        //if a timer is desired
+        if (timedGameBox.isEnabled() && timedGameBox.getState()) {
+            boolean successful = theFacade.setTimer(turnLengthField.getValue(),
+                        warningLengthField.getValue());
+            if(!successful) {
+                JOptionPane.showMessageDialog(null,
+                        "Invalid Timer value(s)",
+                        "Error",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            theFacade.setTimer(-1, -1);
+        }
+        //start the game
+        theFacade.startGame();
+        //hide this screen, make and show the GUI
+        this.hide();
+        CheckerGUI GUI = new CheckerGUI(theFacade, theFacade.getPlayerName(1),
+                theFacade.getPlayerName(2));
+        GUI.show();
+
+    }
     /**
      * This takes care of when an action takes place. It will check the
      * action command of all components and then deicde what needs to be done.
@@ -271,92 +305,25 @@ public class SecondScreen extends JFrame
      */
 
     public void actionPerformed(ActionEvent e) {
-        try {
+        if ((e.getActionCommand()).equals("ok")) {
+            okCommand();
 
-            if ((e.getActionCommand()).equals("ok")) {
+            //if they hit cancel go to the previous screen
+        } else if (e.getActionCommand().equals("cancel")) {
+            this.hide();
+            theFirst.show();
 
-                //take note of all selections and go to game startup
-                if (playerOneField.isEnabled()) {
-                    if ((playerOneField.getText()).equalsIgnoreCase("")) {
-                        playerOneField.setText("player1");
-                    }
-                }
+            //handle whether or not a timer is desired
+        } else if (e.getSource() instanceof Checkbox) {
 
-                if (playerTwoField.isEnabled()) {
-                    if ((playerTwoField.getText()).equalsIgnoreCase("")) {
-                        playerTwoField.setText("player2");
-                    }
-                }
-
-                theFacade.setPlayerName(1, playerOneField.getText());
-                theFacade.setPlayerName(2, playerTwoField.getText());
-
-                //if a timer is desired
-                if (timedGameBox.isEnabled()) {
-                    if (timedGameBox.getState()) {
-
-                        //set the 2 timer values
-                        try {
-
-                            theFacade.setTimer(turnLengthField.getValue(),
-                                    warningLengthField.getValue());
-
-                        } catch (Exception x) {
-
-                            JOptionPane.showMessageDialog(null,
-                                    "Invalid Timer value(s)",
-                                    "Error",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                        }
-                        //else set timer values to a no timer constant
-                    } else {
-                        theFacade.setTimer(-1, -1);
-
-                    }
-                } else {
-                    theFacade.setTimer(-1, -1);
-
-                }
-
-                //start the game
-                theFacade.startGame();
-                //hide this screen, make and show the GUI
-                this.hide();
-                CheckerGUI GUI = new CheckerGUI(theFacade, theFacade.getPlayerName(1),
-                        theFacade.getPlayerName(2));
-                GUI.show();
-
-                //if they hit cancel go to the previous screen
-            } else if (e.getActionCommand().equals("cancel")) {
-                this.hide();
-                theFirst.show();
-
-                //handle whether or not a timer is desired
-            } else if (e.getSource() instanceof Checkbox) {
-
-                if (timedGameBox.getState()) {
-                    turnLengthField.setEnabled(true);
-                    warningLengthField.setEnabled(true);
-                } else {
-                    turnLengthField.setEnabled(false);
-                    warningLengthField.setEnabled(false);
-                }
+            if (timedGameBox.getState()) {
+                turnLengthField.setEnabled(true);
+                warningLengthField.setEnabled(true);
+            } else {
+                turnLengthField.setEnabled(false);
+                warningLengthField.setEnabled(false);
             }
-
-        } catch (Exception x) {
-            x.printStackTrace();
         }
-
     }//end of actionPerformed
-
-    /**
-     * Exit the Application
-     *
-     * @param evt the action that tells the window to close
-     */
-
-    private void exitForm(java.awt.event.WindowEvent evt) {
-        System.exit(0);
-    }
 
 }//SecondScreen

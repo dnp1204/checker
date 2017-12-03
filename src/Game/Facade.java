@@ -259,7 +259,7 @@ public class Facade extends Component {
      *
      * @pre 10 <= time <= 300.
      */
-    public void setTimer(int time, int warning) throws Exception {
+    public boolean setTimer(int time, int warning) {
         // Checks to see that time is in between the necessary frame
         // Sets time(class variable) to time(param value)
         if ((time == -1) || ((time >= 10 || time <= 300)
@@ -268,9 +268,9 @@ public class Facade extends Component {
             timer = time;
             warningTime = warning;
             theDriver.setTimer(time, warning);
-
+            return true;
         } else {
-            throw new Exception("Invalid timer settings");
+            return false;
         }
     }
 

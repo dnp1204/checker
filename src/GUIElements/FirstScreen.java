@@ -16,8 +16,6 @@ import GameTypeState.GameState;
 import GameTypeState.HostGameState;
 import GameTypeState.JoinGameState;
 import GameTypeState.LocalGameState;
-
-import java.net.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -75,6 +73,14 @@ public class FirstScreen extends JFrame implements ActionListener {
         return gbc;
     }
 
+//    private void addActionListener(){
+//        JComponent[] components = {LocalGameButton,HostGameButton,JoinGameButton,
+//        IPField,IPLabel,OKButton,CancelButton};
+//        for(int i=0;i<components.length;i++){
+//            components[i].addActionListener(this);
+//        } //todo
+//    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -85,7 +91,7 @@ public class FirstScreen extends JFrame implements ActionListener {
         java.awt.GridBagConstraints gridBagConstraints1;
         addWindowListener(new java.awt.event.WindowAdapter() {
                               public void windowClosing(java.awt.event.WindowEvent evt) {
-                                  exitForm(evt);
+                                  System.exit(0);
                               }
                           }
         );
@@ -141,7 +147,6 @@ public class FirstScreen extends JFrame implements ActionListener {
         CancelButton.addActionListener(this);
 
         gridBagConstraints1 = setGridBagConstraint(3,5);
-        gridBagConstraints1.gridx = 3;
         gridBagConstraints1.insets = new Insets(30, 0, 0, 0);
         getContentPane().add(CancelButton, gridBagConstraints1);
 
@@ -150,16 +155,6 @@ public class FirstScreen extends JFrame implements ActionListener {
         IPExampleLabel.setForeground(Color.black);
 
         getContentPane().add(IPExampleLabel, setGridBagConstraint(2,4));
-    }
-
-    /**
-     * Exit the Application
-     *
-     * @param the event to close the window
-     */
-
-    private void exitForm(WindowEvent evt) {
-        System.exit(0);
     }
 
     /**

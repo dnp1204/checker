@@ -108,8 +108,8 @@ public class CheckerGUI extends JFrame implements ActionListener {
         int y = 0;
         getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints gridBagConstraints1;
-        Color evenColor = Color.white;
-        Color oddColor = new Color(204, 204, 153);
+        Color oddColor = Color.white;
+        Color evenColor = new Color(204, 204, 153);
 
         for (int i = 0; i < 64; i++) {
             JButton jButton = new JButton();

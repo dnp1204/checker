@@ -65,7 +65,7 @@ public class TestingKernel extends java.lang.Object{
     /**
      * The constructor for this kernel which calls the other methods.
      *
-     * @param aFacade The facade to manipulate in this program.
+     * @param   facade to manipulate in this program.
      */
     public TestingKernel( Driver aDriver ){
         //testFacade = aFacade;
@@ -86,7 +86,7 @@ public class TestingKernel extends java.lang.Object{
         
         try{
             // Set this game to be a local game.
-            testFacade.setGameMode( testFacade.LOCALGAME );
+            testFacade.setGameMode( testFacade.getLOCALGAME() );
         
             // Create players
             // createPlayer(int num, int type, String name)

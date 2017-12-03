@@ -14,17 +14,17 @@ public class HostGameState implements GameState {
     public void doAction() {
         //set up to host a game
         try {
-            firstScreen.getTheFacade().setGameMode(firstScreen.getTheFacade().HOSTGAME);
+            firstScreen.getTheFacade().setGameMode(firstScreen.getTheFacade().getHOSTGAME());
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        firstScreen.getTheFacade().createPlayer(1, firstScreen.getTheFacade().HOSTGAME);
-        firstScreen.getTheFacade().createPlayer(2, firstScreen.getTheFacade().HOSTGAME);
+        firstScreen.getTheFacade().createPlayer(1, firstScreen.getTheFacade().getHOSTGAME());
+        firstScreen.getTheFacade().createPlayer(2, firstScreen.getTheFacade().getHOSTGAME());
 
         //hide the FirstScreen, make the SecondScreen and show it
         firstScreen.hide();
         SecondScreen next = new SecondScreen(firstScreen.getTheFacade(), firstScreen, firstScreen.getTheFacade()
-                .HOSTGAME);
+                .getHOSTGAME());
         next.show();
     }
 

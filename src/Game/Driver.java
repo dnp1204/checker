@@ -106,15 +106,15 @@ public class Driver {
 		
 		// If game is networked tell networked player to send 
 		// the move
-		if ( gameType == theFacade.HOSTGAME 
-		     || gameType == theFacade.CLIENTGAME ) {
+		if ( gameType == theFacade.getHOSTGAME()
+		     || gameType == theFacade.getCLIENTGAME() ) {
 		    ( (NetworkPlayer) activePlayer ).sendMove();
 		}
 	    }
 	} else if ( passivePlayer == player ) {
 	    // If game is networked, tell networked player to send move
-	    if ( gameType == theFacade.HOSTGAME 
-		 || gameType == theFacade.CLIENTGAME ) {
+	    if ( gameType == theFacade.getHOSTGAME()
+		 || gameType == theFacade.getCLIENTGAME() ) {
 		((NetworkPlayer)activePlayer).sendMove();
 		((NetworkPlayer)activePlayer).waitForPlayer();
 	    }
@@ -248,7 +248,7 @@ public class Driver {
      * @param player The player declining the draw.
      */
     public void declineDraw( Player player ){
-	if ( gameType == theFacade.LOCALGAME ) {
+	if ( gameType == theFacade.getLOCALGAME() ) {
 	    player.endInDeclineDraw( player );
 	} else {
 	    playerOne.endInDeclineDraw( player );
@@ -324,10 +324,10 @@ public class Driver {
     public void startGame(){
 	selectColors();
        
-	if ( gameType == theFacade.HOSTGAME ) {
+	if ( gameType == theFacade.getHOSTGAME() ) {
 	    ( (NetworkPlayer)playerTwo).waitForConnect();
 	    //( (NetworkPlayer)playerTwo).waitForConnect();
-	} else if ( gameType == theFacade.CLIENTGAME ) {
+	} else if ( gameType == theFacade.getCLIENTGAME() ) {
 	    //( (NetworkPlayer)playerOne).connectToHost();
 	    ( (NetworkPlayer)playerOne).connectToHost();
 	}
@@ -391,7 +391,7 @@ public class Driver {
     /**
      * Select the type of game
      *
-     * @param mode the mode (0 local, 1 host, 2 client) of the game
+     * @param newMode the mode (0 local, 1 host, 2 client) of the game
      *
      * @pre  Players have not been created
      * @post Mode is set

@@ -18,13 +18,13 @@ public class JoinGameState implements GameState {
     public void doAction() {
         //set up to join a game
         try {
-            firstScreen.getTheFacade().setGameMode(firstScreen.getTheFacade().CLIENTGAME);
+            firstScreen.getTheFacade().setGameMode(firstScreen.getTheFacade().getCLIENTGAME());
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
 
-        firstScreen.getTheFacade().createPlayer(1, firstScreen.getTheFacade().CLIENTGAME);
-        firstScreen.getTheFacade().createPlayer(2, firstScreen.getTheFacade().CLIENTGAME);
+        firstScreen.getTheFacade().createPlayer(1, firstScreen.getTheFacade().getCLIENTGAME());
+        firstScreen.getTheFacade().createPlayer(2, firstScreen.getTheFacade().getCLIENTGAME());
 
         //try to connect
         try {
@@ -37,7 +37,7 @@ public class JoinGameState implements GameState {
             //hide the FirstScreen, make and show the Second screen
             firstScreen.hide();
             SecondScreen next = new SecondScreen(firstScreen.getTheFacade(), firstScreen, firstScreen.getTheFacade()
-                    .CLIENTGAME);
+                    .getCLIENTGAME());
             next.show();
 
             //catch any exceptions

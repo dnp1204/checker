@@ -340,113 +340,98 @@ public class Rules {
 
             // Check to see if piece is adjacent to piece of opposite color.
             // If there are, add possible end locations to vector.
-            for (; i < loop; i++) {
-                if (!leftWallPieces.contains(new Integer(piecePosition +
-                        adjacentSpots[i])) &&
-                        !rightWallPieces.contains(new Integer(piecePosition +
-                                adjacentSpots[i]))) {
-                    adjacentSpace = theBoard.occupied(piecePosition +
-                            adjacentSpots[i]);
-                    aPiece = theBoard.getPieceAt(piecePosition +
-                            adjacentSpots[i]);
-
-                    if (adjacentSpace &&
-                            (aPiece.getColor() != player.getColor())) {
-                        // Check space diagonal to the piece to see if it is empty.
-                        endSpace = theBoard.occupied(piecePosition +
-                                secondSpots[i]);
-                        /// If the space is empty, the jump is valid and it is
-                        // added to vector of possible jumps.
-                        if (!endSpace) {
-                            possibleJumps.addElement(new Integer(piecePosition
-                                    + secondSpots[i]));
-                            // If the player has selected to make this jump,
-                            // let other methods access the piece to be jumped
-                            if (currentMove.endLocation() == piecePosition +
-                                    secondSpots[i]) {
-                                middle = piecePosition + adjacentSpots[i];
-                            }
-                        }
-                    }
-                    adjacentSpace = false;
-                } // end for
-            } // end if (the piece is not a king).
+            checkoppcoloradj(i,loop,piecePosition,adjacentSpace,endSpace,aPiece,player,possibleJumps);
         }
         // If piece is white...
         else if (player.getColor() == Color.white) {
 
 
             for (int j = 0; j <= 1; j++) {
-                if (!leftWallPieces.contains(new Integer(piecePosition +
-                        adjacentSpots[j])) &&
-                        !rightWallPieces.contains(new Integer(piecePosition +
-                                adjacentSpots[j]))) {
-                    // Check to see if there is a piece this piece can jump over.
-                    adjacentSpace = theBoard.occupied(piecePosition +
-                            adjacentSpots[j]);
-                    // Get that piece
-
-                    if (adjacentSpace) {
-                        aPiece = theBoard.getPieceAt(piecePosition +
-                                adjacentSpots[j]);
-                        //player = aPlayer;
-                    }
-                    // Make sure the piece is the right color
-                    if (adjacentSpace && aPiece.getColor() !=
-                            player.getColor()) {
-                        // Check space diagonal to piece to see if it is empty.
-                        endSpace = theBoard.occupied(piecePosition +
-                                secondSpots[j]);
-                        // If space is empty, there is a jump that must be made.
-                        if (!endSpace) {
-                            possibleJumps.addElement(new Integer(piecePosition
-                                    + secondSpots[j]));
-                        }
-                        // If the player has selected to make this jump,
-                        // let other methods access the piece to be jumped
-                        if (currentMove.endLocation() == piecePosition
-                                + secondSpots[j]) {
-                            middle = piecePosition + adjacentSpots[j];
-                        }
-                    }
-                    adjacentSpace = false;
-                } // end for
+                checkAdjSpace(piecePosition, adjacentSpace,aPiece,endSpace,player,possibleJumps,j);
             }
         }
         // else the Color is blue and can only move down.
         else {
             for (int k = 2; k < adjacentSpots.length; k++) {
-                if (!leftWallPieces.contains(new Integer(piecePosition +
-                        adjacentSpots[k])) &&
-                        !rightWallPieces.contains(new Integer(piecePosition +
-                                adjacentSpots[k]))) {
-                    adjacentSpace = theBoard.occupied(piecePosition +
-                            adjacentSpots[k]);
-                    aPiece = theBoard.getPieceAt(piecePosition +
-                            adjacentSpots[k]);
-
-                    if (adjacentSpace && (aPiece.getColor() !=
-                            player.getColor())) {
-                        // Check space diagonal to piece to see if it is empty.
-                        endSpace = theBoard.occupied(piecePosition +
-                                secondSpots[k]);
-                        // If space is empty, a multi jump that must be made.
-                        if (!endSpace) {
-                            possibleJumps.addElement(new Integer(piecePosition
-                                    + secondSpots[k]));
-                            if (currentMove.endLocation() == piecePosition +
-                                    secondSpots[k]) {
-                                middle = piecePosition + adjacentSpots[k];
-                            }
-                        }
-                    }
-                    adjacentSpace = false;
-                } // end for
+                checkAdjSpace(piecePosition, adjacentSpace,aPiece,endSpace,player,possibleJumps,k);
             }
         }
 
         return possibleJumps;
 
+    }
+
+    private void checkAdjSpace(int piecePosition, boolean adjacentSpace, Piece aPiece, boolean endSpace,
+                               Player player, Vector possibleJumps, int j) {
+        if (!leftWallPieces.contains(new Integer(piecePosition +
+                adjacentSpots[j])) &&
+                !rightWallPieces.contains(new Integer(piecePosition +
+                        adjacentSpots[j]))) {
+            // Check to see if there is a piece this piece can jump over.
+            adjacentSpace = theBoard.occupied(piecePosition +
+                    adjacentSpots[j]);
+            // Get that piece
+
+            if (adjacentSpace) {
+                aPiece = theBoard.getPieceAt(piecePosition +
+                        adjacentSpots[j]);
+                //player = aPlayer;
+            }
+            // Make sure the piece is the right color
+            if (adjacentSpace && aPiece.getColor() !=
+                    player.getColor()) {
+                // Check space diagonal to piece to see if it is empty.
+                endSpace = theBoard.occupied(piecePosition +
+                        secondSpots[j]);
+                // If space is empty, there is a jump that must be made.
+                if (!endSpace) {
+                    possibleJumps.addElement(new Integer(piecePosition
+                            + secondSpots[j]));
+                }
+                // If the player has selected to make this jump,
+                // let other methods access the piece to be jumped
+                if (currentMove.endLocation() == piecePosition
+                        + secondSpots[j]) {
+                    middle = piecePosition + adjacentSpots[j];
+                }
+            }
+            adjacentSpace = false;
+        }
+    }
+
+    private void checkoppcoloradj(int i, int loop, int piecePosition, boolean adjacentSpace,
+                                     boolean endSpace, Piece aPiece, Player player, Vector possibleJumps){
+        for (; i < loop; i++) {
+            if (!leftWallPieces.contains(new Integer(piecePosition +
+                    adjacentSpots[i])) &&
+                    !rightWallPieces.contains(new Integer(piecePosition +
+                            adjacentSpots[i]))) {
+                adjacentSpace = theBoard.occupied(piecePosition +
+                        adjacentSpots[i]);
+                aPiece = theBoard.getPieceAt(piecePosition +
+                        adjacentSpots[i]);
+
+                if (adjacentSpace &&
+                        (aPiece.getColor() != player.getColor())) {
+                    // Check space diagonal to the piece to see if it is empty.
+                    endSpace = theBoard.occupied(piecePosition +
+                            secondSpots[i]);
+                    /// If the space is empty, the jump is valid and it is
+                    // added to vector of possible jumps.
+                    if (!endSpace) {
+                        possibleJumps.addElement(new Integer(piecePosition
+                                + secondSpots[i]));
+                        // If the player has selected to make this jump,
+                        // let other methods access the piece to be jumped
+                        if (currentMove.endLocation() == piecePosition +
+                                secondSpots[i]) {
+                            middle = piecePosition + adjacentSpots[i];
+                        }
+                    }
+                }
+                adjacentSpace = false;
+            } // end for
+        } // end if (the piece is not a king)
     }
 
     /**

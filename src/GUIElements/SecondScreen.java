@@ -227,11 +227,11 @@ public class SecondScreen extends JFrame
 
         //determine what components should be disabled
         //depending on the game mode
-        if (gameType == theFacade.LOCALGAME) {
-        } else if (gameType == theFacade.HOSTGAME) {
+        if (gameType == theFacade.getLOCALGAME()) {
+        } else if (gameType == theFacade.getHOSTGAME()) {
             playerTwoLabel.setEnabled(false);
             playerTwoField.setEnabled(false);
-        } else if (gameType == theFacade.CLIENTGAME) {
+        } else if (gameType == theFacade.getCLIENTGAME()) {
             playerOneLabel.setEnabled(false);
             playerOneField.setEnabled(false);
 
@@ -267,7 +267,7 @@ public class SecondScreen extends JFrame
      * This takes care of when an action takes place. It will check the
      * action command of all components and then deicde what needs to be done.
      *
-     * @param the event fired
+     * @param e the event fired
      */
 
     public void actionPerformed(ActionEvent e) {

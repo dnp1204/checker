@@ -102,21 +102,21 @@ public class Driver {
 
                 // If game is networked tell networked player to send
                 // the move
-                if (gameType == theFacade.HOSTGAME
-                        || gameType == theFacade.CLIENTGAME) {
+                if (gameType == theFacade.getHOSTGAME()
+                        || gameType == theFacade.getCLIENTGAME()) {
                     ((NetworkPlayer) activePlayer).sendMove();
                 }
             }
         } else if (passivePlayer == player) {
             // If game is networked, tell networked player to send move
-            if (gameType == theFacade.HOSTGAME
-                    || gameType == theFacade.CLIENTGAME) {
+            if (gameType == theFacade.getHOSTGAME()
+                    || gameType == theFacade.getCLIENTGAME()) {
                 ((NetworkPlayer) activePlayer).sendMove();
                 ((NetworkPlayer) activePlayer).waitForPlayer();
             }
 
             // Inform the other player to make a move and
-            // tell facade to update any listening GUIs and
+            // tell facade to update any listining GUIs and
             // reset the timer
 
             Player tempHold = activePlayer;
@@ -125,7 +125,6 @@ public class Driver {
 
             theFacade.setPlayerModes(activePlayer, passivePlayer);
         }
-
     }
 
     /**
@@ -222,7 +221,7 @@ public class Driver {
     /**
      * This method is called if a draw has been offered
      *
-     * @param the player who offered the draw
+     * @param player who offered the draw
      */
     public void drawOffered(Player player) {
 
@@ -241,7 +240,7 @@ public class Driver {
      * @param player The player declining the draw.
      */
     public void declineDraw(Player player) {
-        if (gameType == theFacade.LOCALGAME) {
+        if (gameType == theFacade.getLOCALGAME()) {
             player.endInDeclineDraw(player);
         } else {
             playerOne.endInDeclineDraw(player);
@@ -253,8 +252,9 @@ public class Driver {
      * Ends the game as a result of a player quitting, notifying
      * each player
      *
-     * @param the player who quit
+     * @param player who quit
      */
+
     public void endInQuit(Player player) {
         playerOne.endOfGame(player.getName() + " quit the game");
         playerTwo.endOfGame(player.getName() + " quit the game");
@@ -316,10 +316,10 @@ public class Driver {
     public void startGame() {
         selectColors();
 
-        if (gameType == theFacade.HOSTGAME) {
+        if (gameType == theFacade.getHOSTGAME()) {
             ((NetworkPlayer) playerTwo).waitForConnect();
             //( (NetworkPlayer)playerTwo).waitForConnect();
-        } else if (gameType == theFacade.CLIENTGAME) {
+        } else if (gameType == theFacade.getCLIENTGAME()) {
             //( (NetworkPlayer)playerOne).connectToHost();
             ((NetworkPlayer) playerOne).connectToHost();
         }
@@ -345,6 +345,7 @@ public class Driver {
      * networkedPlayers
      * @post The players are connected to play
      */
+
     public void setHost(URL host) {
         // Call connectToHost in player two with the URL
         ((NetworkPlayer) playerOne).setHost(host);
@@ -378,9 +379,14 @@ public class Driver {
 
     /**
      * Select the type of game
+     * <p>
+     * <<<<<<< HEAD
      *
-     * @param mode the mode (0 local, 1 host, 2 client) of the game
+     * @param newMode the mode (0 local, 1 host, 2 client) of the game
      * @pre Players have not been created
+     * =======
+     * @pre Players have not been created
+     * >>>>>>> master
      * @post Mode is set
      */
     public void setGameMode(int newMode) {

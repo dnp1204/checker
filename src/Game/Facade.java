@@ -24,18 +24,18 @@ import java.net.*;
 
 public class Facade extends Component {
 
-    public static int LOCALGAME = 10000;
-    public static int HOSTGAME = 20000;
-    public static int CLIENTGAME = 30000;
+    private final int LOCALGAME = 10000;
+    private final int HOSTGAME = 20000;
+    private final int CLIENTGAME = 30000;
 
     public static String update = "update";
     public static String playerSwitch = "switch";
-    public static String ID = "facade";
+    private static String ID = "facade";
 
-    public Driver theDriver;
-    public Board theBoard;
-    public Player passivePlayer;
-    public Player activePlayer;
+    private Driver theDriver;
+    private Board theBoard;
+    private Player passivePlayer;
+    private Player activePlayer;
 
     private int startSpace = 99; // Starting space for current move
     private int endSpace = 99; // Ending space for current move
@@ -58,6 +58,22 @@ public class Facade extends Component {
         theBoard = newBoard;
         theDriver = newDriver;
 
+    }
+
+    public int getLOCALGAME(){
+        return this.LOCALGAME;
+    }
+
+    public int getCLIENTGAME(){
+        return this.CLIENTGAME;
+    }
+
+    public int getHOSTGAME(){
+        return this.HOSTGAME;
+    }
+
+    public Driver getTheDriver() {
+        return theDriver;
     }
 
     /**
@@ -285,7 +301,8 @@ public class Facade extends Component {
     /**
      * Set the game mode: a local game or a network game
      *
-     * @param the mode of the game
+     * @param  mode of the game
+     *
      * @pre we are in the setup for a game
      */
     public void setGameMode(int mode) throws Exception {

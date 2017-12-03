@@ -63,7 +63,7 @@ public class CheckerGUI extends JFrame implements ActionListener {
         playerOnesName = makeShortName(name1);
         playerTwosName = makeShortName(name2);
         theFacade = facade;
-        rules = new Rules(theFacade.stateOfBoard(), theFacade.theDriver);
+        rules = new Rules(theFacade.stateOfBoard(), theFacade.getTheDriver());
         register();
 
         initComponents();

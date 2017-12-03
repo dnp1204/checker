@@ -17,16 +17,15 @@ package Game; /**
 import Players.Player;
 
 /**
- *  This class is the system's Testing Kernel.  For now it is hard 
- *  coded, sequential tests that will be performed.
- *
- *  It tests the system and how it responds to such things as basic 
- *  moves/jumps, illegal values, and illegal moves/jumps.
- *
- *  All results will be outputted about pass/fail on the tests.
+ * This class is the system's Testing Kernel.  For now it is hard
+ * coded, sequential tests that will be performed.
+ * <p>
+ * It tests the system and how it responds to such things as basic
+ * moves/jumps, illegal values, and illegal moves/jumps.
+ * <p>
+ * All results will be outputted about pass/fail on the tests.
  *
  * @author
- * @version
  */
 public class TestingKernel extends java.lang.Object {
     // The facade that we will manipulate and interact with.
@@ -44,12 +43,12 @@ public class TestingKernel extends java.lang.Object {
     public String playerTwo = "Bob";
 
     /**
-     * The main method.  
-     *
+     * The main method.
+     * <p>
      * Create a new instance of the driver and then create an instance
      * of kernel, pass it that driver, and start the program from there.
      *
-     * @param args Array of command line arguments. 
+     * @param args Array of command line arguments.
      */
     public static void main(String args[]) {
         // Create the driver
@@ -64,7 +63,7 @@ public class TestingKernel extends java.lang.Object {
     /**
      * The constructor for this kernel which calls the other methods.
      *
-     * @param aFacade The facade to manipulate in this program.
+     * @param aDriver to manipulate in this program.
      */
     public TestingKernel(Driver aDriver) {
         //testFacade = aFacade;
@@ -78,14 +77,14 @@ public class TestingKernel extends java.lang.Object {
 
     /**
      * Set the state of the game to initial settings.
-     *
+     * <p>
      * i.e., a generously timed local game for which to test.
      */
     public void setBegin() {
 
         try {
             // Set this game to be a local game.
-            testFacade.setGameMode(testFacade.LOCALGAME);
+            testFacade.setGameMode(testFacade.getLOCALGAME());
 
             // Create players
             // createPlayer(int num, int type, String name)
@@ -111,7 +110,7 @@ public class TestingKernel extends java.lang.Object {
 
     /**
      * Tests the intial values, then call the other methods.
-     *
+     * <p>
      * Handles the reporting of the results.
      */
     public void beginTests() {
@@ -169,7 +168,7 @@ public class TestingKernel extends java.lang.Object {
     }
 
     /**
-     * Test basic moves made by the checkers.  This  does not 
+     * Test basic moves made by the checkers.  This  does not
      * tests jumps or invalid moves.
      *
      * @return Whether or not it passed.
@@ -218,9 +217,9 @@ public class TestingKernel extends java.lang.Object {
 
     /**
      * This method will attempt to make moves with out of bound values
-     * to ensure the system detects these without throwing an 
+     * to ensure the system detects these without throwing an
      * OutOfBounds Exception.
-     *
+     * <p>
      * It will also test that the system detects making a
      * move with the same start and end positions.
      *
@@ -260,8 +259,8 @@ public class TestingKernel extends java.lang.Object {
     }
 
     /**
-     * Tests for the following:  A jump is possible.  The player attempts 
-     * to move elsewhere.  System must not allow move and keep state 
+     * Tests for the following:  A jump is possible.  The player attempts
+     * to move elsewhere.  System must not allow move and keep state
      * unchanged.
      *
      * @return Whether or not it passed the test.
@@ -592,7 +591,7 @@ public class TestingKernel extends java.lang.Object {
     }
 
     /**
-     * Tests the actions of the GUI and checks to see that both players 
+     * Tests the actions of the GUI and checks to see that both players
      * may offer draws and accept/decline.
      */
     public boolean testDraw() {
@@ -632,9 +631,9 @@ public class TestingKernel extends java.lang.Object {
     }
 
     /**
-     * This method is a generic way to put in place 
+     * This method is a generic way to put in place
      * an artificial wait into the program.
-     * This allows for the program to have a delay without 
+     * This allows for the program to have a delay without
      * having to implement anything such as Runnable.
      */
     public void simpleWait() {

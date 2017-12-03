@@ -20,13 +20,12 @@ import java.awt.*;
 
 /**
  * This class is used to check the validity
- * of the moves made by the players.  It also 
+ * of the moves made by the players.  It also
  * checks to see if the conditions for the end
  * of the game have been met.
  *
  * @author
  * @author
- *
  */
 public class Rules {
 
@@ -49,7 +48,7 @@ public class Rules {
     /**
      * The constructor for the Rules class.
      *
-     * @param board - the checker board.
+     * @param board  - the checker board.
      * @param driver - the main driver of the program.
      */
     public Rules(Board board, Driver driver) {
@@ -61,15 +60,13 @@ public class Rules {
     }
 
     /**
-     *  This method checks to see if the move that was just made
-     *  was valid and returns a boolean indicating that.
+     * This method checks to see if the move that was just made
+     * was valid and returns a boolean indicating that.
      *
-     *  @param move  The move that is to be validated.
-     *
-     *  @return Boolean indicating if it was valid.
-     *
-     *  @pre a player has made a move
-     *  @post the player knows if the move has legal
+     * @param move The move that is to be validated.
+     * @return Boolean indicating if it was valid.
+     * @pre a player has made a move
+     * @post the player knows if the move has legal
      */
     public boolean validateMove(Move move) {
 
@@ -194,14 +191,13 @@ public class Rules {
     }
 
     /**
-     *  Used after a move has been completed to check to see
-     *  if the conditions have been met for ending the game.
-     *  a boolean is returned indicating whether or not those
-     *  conditions have been met.
+     * Used after a move has been completed to check to see
+     * if the conditions have been met for ending the game.
+     * a boolean is returned indicating whether or not those
+     * conditions have been met.
      *
-     *  @return retval true indicating the game is to end.
-     *
-     *  @pre a capture was successful
+     * @return retval true indicating the game is to end.
+     * @pre a capture was successful
      */
     private boolean checkEndCond() {
 
@@ -216,12 +212,11 @@ public class Rules {
     }
 
     /**
-     *  Will check all the pieces of the opposite player 
-     *  to see if the pieces that are left can not move.
+     * Will check all the pieces of the opposite player
+     * to see if the pieces that are left can not move.
      *
-     *  @return retval true if there are no moves to be made.
-     *
-     *  @pre A capture was successful.
+     * @return retval true if there are no moves to be made.
+     * @pre A capture was successful.
      */
     private boolean checkForNoMoves() {
 
@@ -273,12 +268,11 @@ public class Rules {
     }
 
     /**
-     *  Will check if there are any more pieces left for the player 
-     *  whose turn it is not.
+     * Will check if there are any more pieces left for the player
+     * whose turn it is not.
      *
-     *  @return true if the other player has no more pieces.
-     *
-     *  @pre A capture was successful.
+     * @return true if the other player has no more pieces.
+     * @pre A capture was successful.
      */
     private boolean checkForNoPieces() {
 
@@ -296,14 +290,13 @@ public class Rules {
     }
 
     /**
-     *  Will check the board for any jumps that are open to the current 
-     *  player. If there are any possible jumps the valid end positions 
-     *  will be added to the vector.
+     * Will check the board for any jumps that are open to the current
+     * player. If there are any possible jumps the valid end positions
+     * will be added to the vector.
      *
-     *  @param piecePosition - start position of piece. 
-     *  @param pieceType     - type of piece.
-     *
-     *  @return possibleJumps which contains end positions of possible jumps.
+     * @param piecePosition - start position of piece.
+     * @param pieceType     - type of piece.
+     * @return possibleJumps which contains end positions of possible jumps.
      */
     private Vector<Integer> checkForPossibleJumps(int piecePosition, int pieceType,
                                          Player aPlayer) {
@@ -450,15 +443,13 @@ public class Rules {
     }
 
     /**
-     *   After a piece has made a jump, check to see if another jump can
-     *  be made with the same piece.
+     * After a piece has made a jump, check to see if another jump can
+     * be made with the same piece.
      *
-     *  @param piecePosition - start position of the piece.
-     *  @param pieceType     - the type of the piece.
-     *
-     *  @return retval true if there is a nother jump that must be made.
-     *
-     *  @pre A jump has been made.
+     * @param piecePosition - start position of the piece.
+     * @param pieceType     - the type of the piece.
+     * @return retval true if there is a nother jump that must be made.
+     * @pre A jump has been made.
      */
     private boolean checkForOtherPossibleJump(int piecePosition, int pieceType, Player aPlayer) {
 
@@ -995,7 +986,51 @@ public class Rules {
         }
 
         return retval;
-
     }
+
+    /**
+     * Checks the ending conditions for checker gui the game
+     * see if there a no pieces left
+     *
+     * @return the return value for the method
+     * true if the game should end
+     * false if game needs to continue
+     */
+    public boolean checkEndConditions() {
+
+        //the return value
+        boolean retVal = false;
+        try {
+            //the number of each piece left
+            int whitesGone = 0, bluesGone = 0;
+
+            //go through all the spots on the board
+            for (int i = 1; i < theBoard.sizeOf(); i++) {
+                //if there is a piece there
+                if (theBoard.occupied(i)) {
+                    //if its a blue piece there
+                    if ((theBoard.getPieceAt(i)).getColor() == Color.blue) {
+                        // increment number of blues
+                        bluesGone++;
+                        //if the piece is white
+                    } else if ((theBoard.getPieceAt(i)).getColor()
+                            == Color.white) {
+                        //increment number of whites
+                        whitesGone++;
+                    }
+                }
+            }   //end of for loop
+
+            //if either of the number are 0
+            if (whitesGone == 0 || bluesGone == 0) {
+                retVal = true;
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return retVal;
+
+    }//checkEndConditions
 
 }//Rules.java

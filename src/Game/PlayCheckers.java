@@ -24,29 +24,27 @@ package Game;/*
 import GUIElements.FirstScreen;
 
 /**
- *
  * The main class to run the game. It creates the driver and first screen
  *
  * @author
- *
  */
-class PlayCheckers{
-	
+class PlayCheckers {
+
 	/*
 	* The main method to play checkers
 	*
 	*@param args[] the command line arguments
 	* 
 	*/
-	
-    public static void main( String args[] ){
-	
-	
-	Driver theDriver = new Driver();
-	
-	FirstScreen first = new FirstScreen( theDriver.getFacade() );
-	first.show();
-	
+
+    public static void main(String args[]) {
+
+
+        Driver theDriver = new Driver();
+
+        FirstScreen first = new FirstScreen(theDriver.getFacade());
+        first.show();
+
     }
-    
+
 }//PlayCheckers

@@ -33,20 +33,21 @@ public class SecondScreen extends JFrame
     private int gameType;
 
     // Variables declaration
-    private Checkbox timedGameBox;
-    private JLabel playerOneLabel;
-    private JLabel playerTwoLabel;
-    private JTextField playerOneField;
-    private JTextField playerTwoField;
-    private JLabel turnLengthLabel;
-    private JLabel WarningLengthLabel;
-    private JButton okButton;
-    private JButton cancelButton;
-    private JSlider turnLengthField;
-    private JSlider warningLengthField;
+    private Checkbox timedGameBox = new Checkbox("Timed game");
+    private JLabel playerOneLabel = new JLabel("Players 1:");
+    private JLabel playerTwoLabel = new JLabel("Players 2:");
+    private JTextField playerOneField = new JTextField("Enter name");
+    private JTextField playerTwoField = new JTextField("Enter name");
+    private JLabel turnLengthLabel = new JLabel();
+    private JLabel WarningLengthLabel = new JLabel();
+    private JButton okButton = new JButton("OK");
+    private JButton cancelButton = new JButton("Cancel");
+    private JSlider turnLengthField = new JSlider(10, 300, 120);
+    private JSlider warningLengthField = new JSlider(10, 300, 120);
     // End of variables declaration
 
-
+    private final Color background = new Color(204,204,204);
+    private final Color background2 = new Color(212,208,200);
     /**
      * Creates new SecondScreen
      *
@@ -66,6 +67,21 @@ public class SecondScreen extends JFrame
         pack();
     }
 
+    private void setColorAndName(Component component, Color bg, String name, Color fg){
+        component.setBackground(bg);
+        component.setName(name);
+        component.setForeground(fg);
+    }
+
+    private GridBagConstraints createGridBagConstraints(int x, int y, int top, int left, int bottom,
+                                                        int right, int anchor){
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = x;
+        gbc.gridy = y;
+        gbc.insets = new Insets(top,left,bottom,right);
+        gbc.anchor = anchor;
+        return gbc;
+    }
 
     /**
      * This method is called from within the constructor to
@@ -74,94 +90,45 @@ public class SecondScreen extends JFrame
 
     private void initComponents() {
 
-        timedGameBox = new Checkbox();
-        playerOneLabel = new JLabel();
-        playerTwoLabel = new JLabel();
-        playerOneField = new JTextField();
-        playerTwoField = new JTextField();
-        turnLengthLabel = new JLabel();
-        WarningLengthLabel = new JLabel();
-        okButton = new JButton();
-        cancelButton = new JButton();
-        turnLengthField = new JSlider(10, 300, 120);
-        warningLengthField = new JSlider(10, 300, 120);
+
         getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints gridBagConstraints1;
         addWindowListener(new WindowAdapter() {
                               public void windowClosing(WindowEvent evt) {
-                                  exitForm(evt);
+                                  System.exit(0);
                               }
                           }
         );
 
-
-        timedGameBox.setBackground(new Color(204, 204, 204));
-        timedGameBox.setName("timedGameBox");
-        timedGameBox.setForeground(Color.black);
-        timedGameBox.setLabel("Timed game");
+        setColorAndName(timedGameBox,background,"timedGameBox",Color.black);
         timedGameBox.setState(true);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 0;
-        gridBagConstraints1.gridy = 5;
+        gridBagConstraints1 = createGridBagConstraints(0,5,31,0,1,0,GridBagConstraints.WEST);
         gridBagConstraints1.ipadx = 7;
         gridBagConstraints1.ipady = 7;
-        gridBagConstraints1.insets = new Insets(31, 0, 1, 0);
-        gridBagConstraints1.anchor = GridBagConstraints.WEST;
         getContentPane().add(timedGameBox, gridBagConstraints1);
 
+        setColorAndName(playerOneLabel,background,"playerOneLabel",Color.black);
 
-        playerOneLabel.setName("playerOneLabel");
-        playerOneLabel.setBackground(new Color(204, 204, 204));
-        playerOneLabel.setForeground(Color.black);
-        playerOneLabel.setText("Players 1:");
-
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 0;
-        gridBagConstraints1.gridy = 1;
-        gridBagConstraints1.insets = new Insets(5, 0, 0, 0);
-        gridBagConstraints1.anchor = GridBagConstraints.WEST;
+        gridBagConstraints1 = createGridBagConstraints(0,1,5,0,0,0,GridBagConstraints.WEST);
         getContentPane().add(playerOneLabel, gridBagConstraints1);
 
-        playerTwoLabel.setName("playerTwoLabel");
-        playerTwoLabel.setBackground(new Color(204, 204, 204));
-        playerTwoLabel.setForeground(Color.black);
-        playerTwoLabel.setText("Players 2:");
+        setColorAndName(playerTwoLabel,background,"playerTwoLabel",Color.black);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 0;
-        gridBagConstraints1.gridy = 2;
-        gridBagConstraints1.insets = new Insets(4, 0, 0, 0);
-        gridBagConstraints1.anchor = GridBagConstraints.WEST;
+        gridBagConstraints1 = createGridBagConstraints(0,2,4,0,0,0,GridBagConstraints.WEST);
         getContentPane().add(playerTwoLabel, gridBagConstraints1);
 
-        playerOneField.setBackground(Color.white);
-        playerOneField.setName("textfield1");
-        playerOneField.setForeground(Color.black);
-        playerOneField.setText("Enter name");
+        setColorAndName(playerOneField,Color.white,"textfield1",Color.black);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 1;
-        gridBagConstraints1.gridy = 1;
-        gridBagConstraints1.insets = new Insets(5, 0, 0, 0);
-        gridBagConstraints1.anchor = GridBagConstraints.WEST;
+        gridBagConstraints1 = createGridBagConstraints(1,1,5,0,0,0,GridBagConstraints.WEST);
         getContentPane().add(playerOneField, gridBagConstraints1);
 
-        playerTwoField.setBackground(Color.white);
-        playerTwoField.setName("textfield2");
-        playerTwoField.setForeground(Color.black);
-        playerTwoField.setText("Enter name");
+        setColorAndName(playerTwoField,Color.white,"textfield2",Color.black);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 1;
-        gridBagConstraints1.gridy = 2;
-        gridBagConstraints1.insets = new Insets(4, 0, 0, 0);
-        gridBagConstraints1.anchor = GridBagConstraints.WEST;
+        gridBagConstraints1 = createGridBagConstraints(1,2,4,0,0,0,GridBagConstraints.WEST);
         getContentPane().add(playerTwoField, gridBagConstraints1);
 
-        turnLengthLabel.setName("label3");
-        turnLengthLabel.setBackground(new Color(204, 204, 204));
-        turnLengthLabel.setForeground(Color.black);
+        setColorAndName(turnLengthLabel,background,"label3",Color.black);
         turnLengthLabel.setText("Turn Length ( " + turnLengthField.getValue() + " seconds )");
 
         gridBagConstraints1 = new GridBagConstraints();
@@ -170,9 +137,7 @@ public class SecondScreen extends JFrame
         gridBagConstraints1.anchor = GridBagConstraints.WEST;
         getContentPane().add(turnLengthLabel, gridBagConstraints1);
 
-        WarningLengthLabel.setName("label4");
-        WarningLengthLabel.setBackground(new Color(204, 204, 204));
-        WarningLengthLabel.setForeground(Color.black);
+        setColorAndName(WarningLengthLabel,background,"label4",Color.black);
         WarningLengthLabel.setText("Warning Length ( " + warningLengthField.getValue() + " seconds )");
 
         gridBagConstraints1 = new GridBagConstraints();
@@ -181,32 +146,18 @@ public class SecondScreen extends JFrame
         gridBagConstraints1.anchor = GridBagConstraints.WEST;
         getContentPane().add(WarningLengthLabel, gridBagConstraints1);
 
-        okButton.setText("OK");
-        okButton.setName("button1");
-        okButton.setBackground(new Color(212, 208, 200));
-        okButton.setForeground(Color.black);
         okButton.setActionCommand("ok");
+        setColorAndName(okButton,background2,"button1",Color.black);
         okButton.addActionListener(this);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 0;
-        gridBagConstraints1.gridy = 11;
-        gridBagConstraints1.insets = new Insets(20, 0, 10, 12);
-        gridBagConstraints1.anchor = GridBagConstraints.EAST;
+        gridBagConstraints1 = createGridBagConstraints(0,11,20,0,10,12,GridBagConstraints.EAST);
         getContentPane().add(okButton, gridBagConstraints1);
 
-        cancelButton.setText("Cancel");
-        cancelButton.setName("button2");
-        cancelButton.setBackground(new Color(212, 208, 200));
-        cancelButton.setForeground(Color.black);
+        setColorAndName(cancelButton,background,"button2",Color.black);
         cancelButton.setActionCommand("cancel");
         cancelButton.addActionListener(this);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 1;
-        gridBagConstraints1.gridy = 11;
-        gridBagConstraints1.insets = new Insets(20, 0, 10, 0);
-        gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints1 = createGridBagConstraints(1,11,20,0,10,0,GridBagConstraints.WEST);
         getContentPane().add(cancelButton, gridBagConstraints1);
 
         turnLengthField.setName("textfield3");
@@ -262,7 +213,41 @@ public class SecondScreen extends JFrame
         }
     }
 
+    private void okCommand(){
 
+        //take note of all selections and go to game startup
+        if (playerOneField.isEnabled() && (playerOneField.getText()).equalsIgnoreCase("")) {
+            playerOneField.setText("player1");
+        }
+
+        if (playerTwoField.isEnabled() && playerTwoField.getText().equalsIgnoreCase("")) {
+            playerTwoField.setText("player2");
+        }
+        theFacade.setPlayerName(1, playerOneField.getText());
+        theFacade.setPlayerName(2, playerTwoField.getText());
+
+        //if a timer is desired
+        if (timedGameBox.isEnabled() && timedGameBox.getState()) {
+            boolean successful = theFacade.setTimer(turnLengthField.getValue(),
+                        warningLengthField.getValue());
+            if(!successful) {
+                JOptionPane.showMessageDialog(null,
+                        "Invalid Timer value(s)",
+                        "Error",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            theFacade.setTimer(-1, -1);
+        }
+        //start the game
+        theFacade.startGame();
+        //hide this screen, make and show the GUI
+        this.hide();
+        CheckerGUI GUI = new CheckerGUI(theFacade, theFacade.getPlayerName(1),
+                theFacade.getPlayerName(2));
+        GUI.show();
+
+    }
     /**
      * This takes care of when an action takes place. It will check the
      * action command of all components and then deicde what needs to be done.
@@ -271,92 +256,25 @@ public class SecondScreen extends JFrame
      */
 
     public void actionPerformed(ActionEvent e) {
-        try {
+        if ((e.getActionCommand()).equals("ok")) {
+            okCommand();
 
-            if ((e.getActionCommand()).equals("ok")) {
+            //if they hit cancel go to the previous screen
+        } else if (e.getActionCommand().equals("cancel")) {
+            this.hide();
+            theFirst.show();
 
-                //take note of all selections and go to game startup
-                if (playerOneField.isEnabled()) {
-                    if ((playerOneField.getText()).equalsIgnoreCase("")) {
-                        playerOneField.setText("player1");
-                    }
-                }
+            //handle whether or not a timer is desired
+        } else if (e.getSource() instanceof Checkbox) {
 
-                if (playerTwoField.isEnabled()) {
-                    if ((playerTwoField.getText()).equalsIgnoreCase("")) {
-                        playerTwoField.setText("player2");
-                    }
-                }
-
-                theFacade.setPlayerName(1, playerOneField.getText());
-                theFacade.setPlayerName(2, playerTwoField.getText());
-
-                //if a timer is desired
-                if (timedGameBox.isEnabled()) {
-                    if (timedGameBox.getState()) {
-
-                        //set the 2 timer values
-                        try {
-
-                            theFacade.setTimer(turnLengthField.getValue(),
-                                    warningLengthField.getValue());
-
-                        } catch (Exception x) {
-
-                            JOptionPane.showMessageDialog(null,
-                                    "Invalid Timer value(s)",
-                                    "Error",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                        }
-                        //else set timer values to a no timer constant
-                    } else {
-                        theFacade.setTimer(-1, -1);
-
-                    }
-                } else {
-                    theFacade.setTimer(-1, -1);
-
-                }
-
-                //start the game
-                theFacade.startGame();
-                //hide this screen, make and show the GUI
-                this.hide();
-                CheckerGUI GUI = new CheckerGUI(theFacade, theFacade.getPlayerName(1),
-                        theFacade.getPlayerName(2));
-                GUI.show();
-
-                //if they hit cancel go to the previous screen
-            } else if (e.getActionCommand().equals("cancel")) {
-                this.hide();
-                theFirst.show();
-
-                //handle whether or not a timer is desired
-            } else if (e.getSource() instanceof Checkbox) {
-
-                if (timedGameBox.getState()) {
-                    turnLengthField.setEnabled(true);
-                    warningLengthField.setEnabled(true);
-                } else {
-                    turnLengthField.setEnabled(false);
-                    warningLengthField.setEnabled(false);
-                }
+            if (timedGameBox.getState()) {
+                turnLengthField.setEnabled(true);
+                warningLengthField.setEnabled(true);
+            } else {
+                turnLengthField.setEnabled(false);
+                warningLengthField.setEnabled(false);
             }
-
-        } catch (Exception x) {
-            x.printStackTrace();
         }
-
     }//end of actionPerformed
-
-    /**
-     * Exit the Application
-     *
-     * @param evt the action that tells the window to close
-     */
-
-    private void exitForm(java.awt.event.WindowEvent evt) {
-        System.exit(0);
-    }
 
 }//SecondScreen

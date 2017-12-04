@@ -46,6 +46,9 @@ public class FirstScreen extends JFrame implements ActionListener {
     private GameState hostGameState;
     // End of variables declaration
 
+    private final Color background = new Color(204,204,204);
+    private final Color background2 = new Color(212,208,200);
+
     /**
      * Creates new form FirstScreen
      *
@@ -66,6 +69,12 @@ public class FirstScreen extends JFrame implements ActionListener {
         pack();
     }
 
+    /**
+     * Generates the grid bag constraints
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @return a GBC with set x and y coordinates
+     */
     private GridBagConstraints setGridBagConstraint(int x, int y){
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = x;
@@ -73,13 +82,30 @@ public class FirstScreen extends JFrame implements ActionListener {
         return gbc;
     }
 
-//    private void addActionListener(){
-//        JComponent[] components = {LocalGameButton,HostGameButton,JoinGameButton,
-//        IPField,IPLabel,OKButton,CancelButton};
-//        for(int i=0;i<components.length;i++){
-//            components[i].addActionListener(this);
-//        } //todo
-//    }
+    /**
+     * Method to add listeners
+     */
+    private void addListeners(){
+        LocalGameButton.addActionListener(this);
+        HostGameButton.addActionListener(this);
+        JoinGameButton.addActionListener(this);
+        IPField.addActionListener(this);
+        OKButton.addActionListener(this);
+        CancelButton.addActionListener(this);
+    }
+
+    /**
+     * Set the background, foreground, and names for a component
+     * @param component the component to be modified
+     * @param name name to give the component
+     * @param bg background color
+     * @param fg foreground color
+     */
+    private void setBackgroundAndName(Component component, String name, Color bg, Color fg){
+        component.setForeground(fg);
+        component.setBackground(bg);
+        component.setName(name);
+    }
 
     /**
      * This method is called from within the constructor to
@@ -101,60 +127,46 @@ public class FirstScreen extends JFrame implements ActionListener {
         gameModes.add(JoinGameButton);
 
         LocalGameButton.setActionCommand("local");
-        LocalGameButton.addActionListener(this);
         LocalGameButton.setSelected(true);
 
         getContentPane().add(LocalGameButton, setGridBagConstraint(1,0));
 
         HostGameButton.setActionCommand("host");
-        HostGameButton.addActionListener(this);
 
         getContentPane().add(HostGameButton, setGridBagConstraint(1,1));
 
         JoinGameButton.setActionCommand("join");
-        JoinGameButton.addActionListener(this);
 
         getContentPane().add(JoinGameButton, setGridBagConstraint(1,2));
 
-        IPField.setBackground(Color.white);
-        IPField.setName("textfield5");
-        IPField.setForeground(Color.black);
+        setBackgroundAndName(IPField,"textfield5",Color.white,Color.black);
         IPField.setEnabled(false);
-        IPField.addActionListener(this);
 
         getContentPane().add(IPField, setGridBagConstraint(2,3));
 
-        IPLabel.setName("label10");
-        IPLabel.setBackground(new Color(204, 204, 204));
-        IPLabel.setForeground(Color.black);
+        setBackgroundAndName(IPLabel,"label10",background,Color.black);
 
         getContentPane().add(IPLabel, setGridBagConstraint(1,3));
 
         OKButton.setActionCommand("ok");
-        OKButton.setName("button6");
-        OKButton.setBackground(new Color(212, 208, 200));
-        OKButton.setForeground(Color.black);
-        OKButton.addActionListener(this);
+        setBackgroundAndName(OKButton, "button6", background2,Color.black);
 
         gridBagConstraints1 = setGridBagConstraint(2,5);
         gridBagConstraints1.insets = new Insets(30, 0, 0, 0);
         getContentPane().add(OKButton, gridBagConstraints1);
 
         CancelButton.setActionCommand("cancel");
-        CancelButton.setName("button7");
-        CancelButton.setBackground(new Color(212, 208, 200));
-        CancelButton.setForeground(Color.black);
-        CancelButton.addActionListener(this);
+        setBackgroundAndName(CancelButton, "button7", background2, Color.black);
 
         gridBagConstraints1 = setGridBagConstraint(3,5);
         gridBagConstraints1.insets = new Insets(30, 0, 0, 0);
         getContentPane().add(CancelButton, gridBagConstraints1);
 
-        IPExampleLabel.setName("label11");
-        IPExampleLabel.setBackground(new Color(204, 204, 204));
-        IPExampleLabel.setForeground(Color.black);
+        setBackgroundAndName(IPExampleLabel, "label11", background, Color.black);
 
         getContentPane().add(IPExampleLabel, setGridBagConstraint(2,4));
+
+        addListeners();
     }
 
     /**

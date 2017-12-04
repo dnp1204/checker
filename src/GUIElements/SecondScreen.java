@@ -83,6 +83,13 @@ public class SecondScreen extends JFrame
         return gbc;
     }
 
+    private void addListeners(){
+        okButton.addActionListener(this);
+        cancelButton.addActionListener(this);
+        turnLengthField.addChangeListener(this);
+        warningLengthField.addChangeListener(this);
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -148,20 +155,17 @@ public class SecondScreen extends JFrame
 
         okButton.setActionCommand("ok");
         setColorAndName(okButton,background2,"button1",Color.black);
-        okButton.addActionListener(this);
 
         gridBagConstraints1 = createGridBagConstraints(0,11,20,0,10,12,GridBagConstraints.EAST);
         getContentPane().add(okButton, gridBagConstraints1);
 
         setColorAndName(cancelButton,background,"button2",Color.black);
         cancelButton.setActionCommand("cancel");
-        cancelButton.addActionListener(this);
 
         gridBagConstraints1 = createGridBagConstraints(1,11,20,0,10,0,GridBagConstraints.WEST);
         getContentPane().add(cancelButton, gridBagConstraints1);
 
         turnLengthField.setName("textfield3");
-        turnLengthField.addChangeListener(this);
 
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 1;
@@ -169,12 +173,13 @@ public class SecondScreen extends JFrame
         getContentPane().add(turnLengthField, gridBagConstraints1);
 
         warningLengthField.setName("textfield4");
-        warningLengthField.addChangeListener(this);
 
         gridBagConstraints1 = new GridBagConstraints();
         gridBagConstraints1.gridx = 1;
         gridBagConstraints1.gridy = 8;
         getContentPane().add(warningLengthField, gridBagConstraints1);
+
+        addListeners();
 
         //determine what components should be disabled
         //depending on the game mode

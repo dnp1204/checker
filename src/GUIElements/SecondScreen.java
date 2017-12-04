@@ -67,12 +67,30 @@ public class SecondScreen extends JFrame
         pack();
     }
 
+    /**
+     * Sets the color and name of a component
+     * @param component component to be changed
+     * @param bg background
+     * @param name name
+     * @param fg foreground
+     */
     private void setColorAndName(Component component, Color bg, String name, Color fg){
         component.setBackground(bg);
         component.setName(name);
         component.setForeground(fg);
     }
 
+    /**
+     * Creates gridbag and insets
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param top top inset
+     * @param left left inset
+     * @param bottom bottom inset
+     * @param right right inset
+     * @param anchor anchor color
+     * @return
+     */
     private GridBagConstraints createGridBagConstraints(int x, int y, int top, int left, int bottom,
                                                         int right, int anchor){
         GridBagConstraints gbc = new GridBagConstraints();
@@ -83,6 +101,9 @@ public class SecondScreen extends JFrame
         return gbc;
     }
 
+    /**
+     * Adds listeners
+     */
     private void addListeners(){
         okButton.addActionListener(this);
         cancelButton.addActionListener(this);
@@ -218,6 +239,11 @@ public class SecondScreen extends JFrame
         }
     }
 
+    /**
+     * Command that occurs when OK button is pressed
+     * Sets player names and checks for valid timer input
+     * Replace exception with test and decompose conditional
+     */
     private void okCommand(){
 
         //take note of all selections and go to game startup

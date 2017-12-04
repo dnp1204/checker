@@ -93,7 +93,7 @@ public abstract class Player {
      * This method is used for when a user has clicked on the
      * "Quit" button on the GUI.  It handles exiting  the game.
      *
-     * @param the player who quit
+     * @param: the player who quit
      * @pre game is in progress
      * @post message is sent to driver to end the game
      */
@@ -105,7 +105,7 @@ public abstract class Player {
      * has been offered.  This method is implemented differently for
      * localPlayer and networkPlayer.
      *
-     * @param the player who offered the draw
+     * @param: the player who offered the draw
      * @pre a game is in progress
      * @pre a draw has been offered
      */
@@ -135,7 +135,7 @@ public abstract class Player {
      * players to notify them of this with a message.  Implementation
      * differs for local player and network player.
      *
-     * @param endMessage Message indicating the end of the game.
+     * @param: endMessage Message indicating the end of the game.
      */
     public abstract void endInDraw(Player player);
 
@@ -163,7 +163,7 @@ public abstract class Player {
     /**
      * Sets the players name
      *
-     * @param the name to be set
+     * @param: the name to be set
      */
     public void setName(String name) {
         playerName = name;

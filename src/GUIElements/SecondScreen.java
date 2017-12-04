@@ -46,7 +46,8 @@ public class SecondScreen extends JFrame
     private JSlider warningLengthField = new JSlider(10, 300, 120);
     // End of variables declaration
 
-
+    private final Color background = new Color(204,204,204);
+    private final Color background2 = new Color(212,208,200);
     /**
      * Creates new SecondScreen
      *
@@ -66,6 +67,21 @@ public class SecondScreen extends JFrame
         pack();
     }
 
+    private void setColorAndName(Component component, Color bg, String name, Color fg){
+        component.setBackground(bg);
+        component.setName(name);
+        component.setForeground(fg);
+    }
+
+    private GridBagConstraints createGridBagConstraints(int x, int y, int top, int left, int bottom,
+                                                        int right, int anchor){
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = x;
+        gbc.gridy = y;
+        gbc.insets = new Insets(top,left,bottom,right);
+        gbc.anchor = anchor;
+        return gbc;
+    }
 
     /**
      * This method is called from within the constructor to
@@ -84,69 +100,35 @@ public class SecondScreen extends JFrame
                           }
         );
 
-
-        timedGameBox.setBackground(new Color(204, 204, 204));
-        timedGameBox.setName("timedGameBox");
-        timedGameBox.setForeground(Color.black);
+        setColorAndName(timedGameBox,background,"timedGameBox",Color.black);
         timedGameBox.setState(true);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 0;
-        gridBagConstraints1.gridy = 5;
+        gridBagConstraints1 = createGridBagConstraints(0,5,31,0,1,0,GridBagConstraints.WEST);
         gridBagConstraints1.ipadx = 7;
         gridBagConstraints1.ipady = 7;
-        gridBagConstraints1.insets = new Insets(31, 0, 1, 0);
-        gridBagConstraints1.anchor = GridBagConstraints.WEST;
         getContentPane().add(timedGameBox, gridBagConstraints1);
 
+        setColorAndName(playerOneLabel,background,"playerOneLabel",Color.black);
 
-        playerOneLabel.setName("playerOneLabel");
-        playerOneLabel.setBackground(new Color(204, 204, 204));
-        playerOneLabel.setForeground(Color.black);
-
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 0;
-        gridBagConstraints1.gridy = 1;
-        gridBagConstraints1.insets = new Insets(5, 0, 0, 0);
-        gridBagConstraints1.anchor = GridBagConstraints.WEST;
+        gridBagConstraints1 = createGridBagConstraints(0,1,5,0,0,0,GridBagConstraints.WEST);
         getContentPane().add(playerOneLabel, gridBagConstraints1);
 
-        playerTwoLabel.setName("playerTwoLabel");
-        playerTwoLabel.setBackground(new Color(204, 204, 204));
-        playerTwoLabel.setForeground(Color.black);
+        setColorAndName(playerTwoLabel,background,"playerTwoLabel",Color.black);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 0;
-        gridBagConstraints1.gridy = 2;
-        gridBagConstraints1.insets = new Insets(4, 0, 0, 0);
-        gridBagConstraints1.anchor = GridBagConstraints.WEST;
+        gridBagConstraints1 = createGridBagConstraints(0,2,4,0,0,0,GridBagConstraints.WEST);
         getContentPane().add(playerTwoLabel, gridBagConstraints1);
 
-        playerOneField.setBackground(Color.white);
-        playerOneField.setName("textfield1");
-        playerOneField.setForeground(Color.black);
+        setColorAndName(playerOneField,Color.white,"textfield1",Color.black);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 1;
-        gridBagConstraints1.gridy = 1;
-        gridBagConstraints1.insets = new Insets(5, 0, 0, 0);
-        gridBagConstraints1.anchor = GridBagConstraints.WEST;
+        gridBagConstraints1 = createGridBagConstraints(1,1,5,0,0,0,GridBagConstraints.WEST);
         getContentPane().add(playerOneField, gridBagConstraints1);
 
-        playerTwoField.setBackground(Color.white);
-        playerTwoField.setName("textfield2");
-        playerTwoField.setForeground(Color.black);
+        setColorAndName(playerTwoField,Color.white,"textfield2",Color.black);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 1;
-        gridBagConstraints1.gridy = 2;
-        gridBagConstraints1.insets = new Insets(4, 0, 0, 0);
-        gridBagConstraints1.anchor = GridBagConstraints.WEST;
+        gridBagConstraints1 = createGridBagConstraints(1,2,4,0,0,0,GridBagConstraints.WEST);
         getContentPane().add(playerTwoField, gridBagConstraints1);
 
-        turnLengthLabel.setName("label3");
-        turnLengthLabel.setBackground(new Color(204, 204, 204));
-        turnLengthLabel.setForeground(Color.black);
+        setColorAndName(turnLengthLabel,background,"label3",Color.black);
         turnLengthLabel.setText("Turn Length ( " + turnLengthField.getValue() + " seconds )");
 
         gridBagConstraints1 = new GridBagConstraints();
@@ -155,9 +137,7 @@ public class SecondScreen extends JFrame
         gridBagConstraints1.anchor = GridBagConstraints.WEST;
         getContentPane().add(turnLengthLabel, gridBagConstraints1);
 
-        WarningLengthLabel.setName("label4");
-        WarningLengthLabel.setBackground(new Color(204, 204, 204));
-        WarningLengthLabel.setForeground(Color.black);
+        setColorAndName(WarningLengthLabel,background,"label4",Color.black);
         WarningLengthLabel.setText("Warning Length ( " + warningLengthField.getValue() + " seconds )");
 
         gridBagConstraints1 = new GridBagConstraints();
@@ -166,30 +146,18 @@ public class SecondScreen extends JFrame
         gridBagConstraints1.anchor = GridBagConstraints.WEST;
         getContentPane().add(WarningLengthLabel, gridBagConstraints1);
 
-        okButton.setName("button1");
-        okButton.setBackground(new Color(212, 208, 200));
-        okButton.setForeground(Color.black);
         okButton.setActionCommand("ok");
+        setColorAndName(okButton,background2,"button1",Color.black);
         okButton.addActionListener(this);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 0;
-        gridBagConstraints1.gridy = 11;
-        gridBagConstraints1.insets = new Insets(20, 0, 10, 12);
-        gridBagConstraints1.anchor = GridBagConstraints.EAST;
+        gridBagConstraints1 = createGridBagConstraints(0,11,20,0,10,12,GridBagConstraints.EAST);
         getContentPane().add(okButton, gridBagConstraints1);
 
-        cancelButton.setName("button2");
-        cancelButton.setBackground(new Color(212, 208, 200));
-        cancelButton.setForeground(Color.black);
+        setColorAndName(cancelButton,background,"button2",Color.black);
         cancelButton.setActionCommand("cancel");
         cancelButton.addActionListener(this);
 
-        gridBagConstraints1 = new GridBagConstraints();
-        gridBagConstraints1.gridx = 1;
-        gridBagConstraints1.gridy = 11;
-        gridBagConstraints1.insets = new Insets(20, 0, 10, 0);
-        gridBagConstraints1.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints1 = createGridBagConstraints(1,11,20,0,10,0,GridBagConstraints.WEST);
         getContentPane().add(cancelButton, gridBagConstraints1);
 
         turnLengthField.setName("textfield3");

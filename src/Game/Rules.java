@@ -526,7 +526,7 @@ public class Rules {
      */
     private Vector wallPieceMoves(int piecePosition, boolean jump, int pieceType, Player aPlayer) {
 
-        Vector moves = new Vector();
+        Vector<Integer> moves = new Vector();
 
         try {
 

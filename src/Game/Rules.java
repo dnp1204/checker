@@ -295,6 +295,8 @@ public class Rules {
     private boolean checkForOtherPossibleJump(int piecePosition, int pieceType, Player aPlayer) {
 
         boolean retval = false;
+        int limit;
+        int counter;
 
         try {
 
@@ -305,56 +307,57 @@ public class Rules {
 
             // If the piece is a king.
             if (pieceType == theBoard.KING) {
-
                 // Check to see if piece is adjacent to piece of opposite color.
                 // If there are, add possible end locations to vector.
-                for (int i = 0; i <= adjacentSpots.length; i++) {
-                    retval = checkOthAdjSpace(piecePosition, i,retval);
-                }
+                limit = adjacentSpots.length;
+                counter = 0;
+                retval = checkOthAdjSpace(piecePosition, counter, limit, retval);
             }
             // Else the piece is regular.
             else {
                 // If it is white the player can only move up.
                 if (aPlayer.getColor() == Color.white) {
-                    for (int j = 0; j <= 1; j++) {
-                        retval = checkOthAdjSpace(piecePosition,
-                                j,retval);
-                    }
+                    counter = 0;
+                    limit = 1;
+                    retval = checkOthAdjSpace(piecePosition, counter, limit, retval);
+
                 }
                 // else the Color is blue and can only move down.
                 else {
-                    for (int k = 2; k <= adjacentSpots.length; k++) {
-                        retval = checkOthAdjSpace(piecePosition,
-                                k,retval);
-                    }
+                    counter = 2;
+                    limit = adjacentSpots.length;
+                    retval = checkOthAdjSpace(piecePosition, counter, limit, retval);
                 }
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return retval;
 
     }
 
-    private boolean checkOthAdjSpace(int piecePosition, int j, boolean retval){
-        if (!leftWallPieces.contains(piecePosition + adjacentSpots[j]) &&
-                !rightWallPieces.contains(piecePosition + adjacentSpots[j])) {
+    private boolean checkOthAdjSpace(int piecePosition, int counter, int limit, boolean retval){
+        for ( int j = counter; counter <= limit; counter++) {
+            if (!leftWallPieces.contains(piecePosition + adjacentSpots[j]) &&
+                    !rightWallPieces.contains(piecePosition + adjacentSpots[j])) {
 
-            boolean adjacentSpace = theBoard.occupied(piecePosition + adjacentSpots[j]);
-            Piece aPiece = theBoard.getPieceAt(piecePosition + adjacentSpots[j]);
-            Player player = currentMove.getPlayer();
+                boolean adjacentSpace = theBoard.occupied(piecePosition + adjacentSpots[j]);
+                Piece aPiece = theBoard.getPieceAt(piecePosition + adjacentSpots[j]);
+                Player player = currentMove.getPlayer();
 
-            if (adjacentSpace && (aPiece.getColor() != player.getColor())) {
+                if (adjacentSpace && (aPiece.getColor() != player.getColor())) {
 
-                // Check space diagonal to the piece to see if it is empty.
-                boolean endSpace = theBoard.occupied(piecePosition + secondSpots[j]);
-                // If the space is empty, there is a multiple jump that must be made.
-                if (!endSpace) {
-                    retval = true;
+                    // Check space diagonal to the piece to see if it is empty.
+                    boolean endSpace = theBoard.occupied(piecePosition + secondSpots[j]);
+                    // If the space is empty, there is a multiple jump that must be made.
+                    if (!endSpace) {
+                        retval = true;
+                    }
                 }
+                adjacentSpace = false;
             }
-            adjacentSpace = false;
         }
         return retval;
     }

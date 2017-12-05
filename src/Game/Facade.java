@@ -415,19 +415,4 @@ public class Facade extends Component {
         }
     }
 
-    /**
-     * Create a player with the given type and player number.
-     *
-     * @param num  Int for player number (either 1 or 2)
-     * @param type Int for type of player (Local, network, etc.)
-     */
-    public void createPlayer(int num, int type) {
-
-        if (type == HOSTGAME || type == CLIENTGAME) {
-            theDriver.createPlayer(num, Player.NETWORKPLAYER, "UnNamedPlayer");
-        } else {
-            theDriver.createPlayer(num, Player.LOCALPLAYER, "UnNamedPlayer");
-        }
-    }
-
 }// Facade.java

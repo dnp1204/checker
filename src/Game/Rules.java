@@ -34,8 +34,8 @@ public class Rules {
     private int adjacentSpots[] = {-9, -7, 7, 9}; // An array of adjacent spots to check.
     private int secondSpots[] = {-18, -14, 14, 18}; // An array of spots adj. to adjacentSpots.
     private int middle = 0;  // The space of a piece that gets jumped
-    private Vector leftWallPieces = new Vector(); // Positions of the left wall spaces.
-    private Vector rightWallPieces = new Vector(); // Positions of the right wall spaces.
+    private Vector<Integer> leftWallPieces = new Vector(); // Positions of the left wall spaces.
+    private Vector<Integer> rightWallPieces = new Vector(); // Positions of the right wall spaces.
 
     private int BOARD_SIZE = 64;
 
@@ -447,10 +447,9 @@ public class Rules {
 
         Vector possibleMoves = new Vector();
         boolean adjacentSpace;
-        Player player = aPlayer;
 
         // Get available moves if the piece is on a wall.
-        possibleMoves.addAll(wallPieceMoves(piecePosition, false, pieceType, player));
+        possibleMoves.addAll(wallPieceMoves(piecePosition, false, pieceType, aPlayer));
 
         // If the piece is a king.
         if (pieceType == theBoard.KING) {

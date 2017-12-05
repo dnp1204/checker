@@ -117,13 +117,13 @@ public class Facade extends Component {
      */
     public void selectSpace(int space) {
 
-        // When button is click, take info from the GUI
+        // When button is clicked, take info from the GUI
         if (startSpace == 99) {
 
             // Set startSpace to space
             startSpace = space;
 
-        } else if (startSpace != 99 && endSpace == 99) {
+        } else if (endSpace == 99) {
             if (space == startSpace) {
 
                 // Viewed as un-selecting the space selected
@@ -307,7 +307,7 @@ public class Facade extends Component {
     }
 
     /**
-     * Notifies everything of the sta eof the board
+     * Notifies everything of the state of the board
      *
      * @return a Board object which is the state of the board
      */

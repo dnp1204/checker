@@ -86,10 +86,9 @@ public class Driver {
         if (activePlayer == player) {
 
             // Inform the player that the move was not valid,
-            // or to make antoher jump
+            // or to make another jump
             if (space < 0) {
-                JOptionPane.showMessageDialog(null,
-                        activePlayer.getName() + " made an illegal move",
+                JOptionPane.showMessageDialog(null, activePlayer.getName() + " made an illegal move",
                         "Invalid Moves", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null,
@@ -381,6 +380,8 @@ public class Driver {
      * Select the type of game
      *
      * @param newMode the mode (0 local, 1 host, 2 client) of the game
+     * @pre Players have not been created
+     * =======
      * @pre Players have not been created
      * @post Mode is set
      */

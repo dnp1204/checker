@@ -314,7 +314,7 @@ public class CheckerGUI extends JFrame implements ActionListener {
             updatePiece(board, i);
         }
 
-        //this code updates whos turn it is
+        //this code updates whose turn it is
         if (theFacade.whosTurn() == 2) {
             playerTwoLabel.setForeground(Color.red);
             PlayerOneLabel.setForeground(Color.black);

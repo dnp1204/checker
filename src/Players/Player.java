@@ -71,17 +71,17 @@ public abstract class Player {
     }
 
     /**
-     * Make an istance of a Moves that was just made and pass it
+     * Make an instance of a Move that was just made and pass it
      * to theRules by calling its validateMove method.
      *
      * @param start The starting spot of the move.  The legal
-     *              squares on the checkers boardare numbered
+     *              squares on the checkers board are numbered
      *              from 1 to 32, left to right, top to bottom.
      * @param end   The ending spot of the move.
      * @return true If move was made, false otherwise
      */
     public boolean makeMove(int start, int end) {
-        boolean retval = false;
+        boolean retval;
 
         theMove = new Move(this, start, end);
         retval = theRules.validateMove(theMove);

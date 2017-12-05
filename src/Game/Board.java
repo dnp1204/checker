@@ -1,4 +1,5 @@
-package Game; /**
+package Game;
+/**
  * Board.java
  * <p>
  * Version:
@@ -9,13 +10,10 @@ package Game; /**
  * Revision 1.1  2002/10/22 21:12:52  se362
  * Initial creation of case study
  */
-
-import Pieces.KingPiece;
-import Pieces.Piece;
-import Pieces.SinglePiece;
-
 import java.util.*;
 import java.awt.*;
+
+import Pieces.*;
 
 
 /**
@@ -43,32 +41,33 @@ public class Board {
         pieces = new Piece[64];
 
         // create blue pieces
-        pieces[1] = new SinglePiece(Color.blue);
-        pieces[3] = new SinglePiece(Color.blue);
-        pieces[5] = new SinglePiece(Color.blue);
-        pieces[7] = new SinglePiece(Color.blue);
-        pieces[8] = new SinglePiece(Color.blue);
-        pieces[10] = new SinglePiece(Color.blue);
-        pieces[12] = new SinglePiece(Color.blue);
-        pieces[14] = new SinglePiece(Color.blue);
-        pieces[17] = new SinglePiece(Color.blue);
-        pieces[19] = new SinglePiece(Color.blue);
-        pieces[21] = new SinglePiece(Color.blue);
-        pieces[23] = new SinglePiece(Color.blue);
+        pieces[1] = new SinglePiece( Color.blue, 1);
+        pieces[3] = new SinglePiece( Color.blue, 3);
+        pieces[5] = new SinglePiece( Color.blue, 5);
+        pieces[7] = new SinglePiece( Color.blue, 7);
+        pieces[8] = new SinglePiece( Color.blue, 8);
+        pieces[10] = new SinglePiece( Color.blue, 10);
+        pieces[12] = new SinglePiece( Color.blue, 12);
+        pieces[14] = new SinglePiece( Color.blue, 14);
+        pieces[17] = new SinglePiece( Color.blue, 17);
+        pieces[19] = new SinglePiece( Color.blue, 19);
+        pieces[21] = new SinglePiece( Color.blue, 21);
+        pieces[23] = new SinglePiece( Color.blue, 23);
 
         // create the white pieces
-        pieces[40] = new SinglePiece(Color.white);
-        pieces[42] = new SinglePiece(Color.white);
-        pieces[44] = new SinglePiece(Color.white);
-        pieces[46] = new SinglePiece(Color.white);
-        pieces[49] = new SinglePiece(Color.white);
-        pieces[51] = new SinglePiece(Color.white);
-        pieces[53] = new SinglePiece(Color.white);
-        pieces[55] = new SinglePiece(Color.white);
-        pieces[56] = new SinglePiece(Color.white);
-        pieces[58] = new SinglePiece(Color.white);
-        pieces[60] = new SinglePiece(Color.white);
-        pieces[62] = new SinglePiece(Color.white);
+        pieces[40] = new SinglePiece( Color.white, 40);
+        pieces[42] = new SinglePiece( Color.white, 42);
+        pieces[44] = new SinglePiece( Color.white, 44);
+        pieces[46] = new SinglePiece( Color.white, 46);
+        pieces[49] = new SinglePiece( Color.white, 49);
+        pieces[51] = new SinglePiece( Color.white, 51);
+        pieces[53] = new SinglePiece( Color.white, 53);
+        pieces[55] = new SinglePiece( Color.white, 55);
+        pieces[56] = new SinglePiece( Color.white, 56);
+        pieces[58] = new SinglePiece( Color.white, 58);
+        pieces[60] = new SinglePiece( Color.white, 60);
+        pieces[62] = new SinglePiece( Color.white, 62);
+
     }
 
 
@@ -92,12 +91,12 @@ public class Board {
 
             // if it is not set a start position in the array to null
             // put a piece object at the end position in the array
-            // that was at the start positon before
+            // that was at the start position before
         } else {
 
             pieces[end] = pieces[start];
+            getPieceAt(end).setPosition(end);
             pieces[start] = null;
-
         }
 
         return returnValue;
@@ -131,12 +130,12 @@ public class Board {
     /**
      * This method removes piece at the position space
      *
-     * @param space - the positon of the piece to be removed
+     * @param space - the position of the piece to be removed
      */
     public void removePiece(int space) {
 
-        // go to the space position in the array
-        // set it equal to null
+        // go to the space position in the array and set it equal to null
+
         pieces[space] = null;
 
     }
@@ -145,16 +144,14 @@ public class Board {
     /**
      * This method creates a king piece
      *
-     * @param space - the psotion at which the king piece is created
+     * @param space - the position at which the king piece is created
      */
     public void kingPiece(int space) {
 
-        // create a new king piece
-        // go to the space position in the array and place it there
-        // if the position is not ocupied
-        Color color = pieces[space].getColor();
-        Piece piece = new KingPiece(color);
-        pieces[space] = piece;
+        // create a new king piece go to the space position in the array and place it there
+        // if the position is not occupied
+
+        pieces[space] = pieces[space].kingThisPiece();
 
     }
 
@@ -171,7 +168,7 @@ public class Board {
         // go to the space position in the array
         // check if there is a piece at that position
         // if there is none, return null
-        // else retrun the color of the piece
+        // else return the color of the piece
 
         if (occupied(space)) {
 
@@ -192,11 +189,10 @@ public class Board {
      */
     public Piece getPieceAt(int space) {
 
-        Piece returnValue = new SinglePiece(Color.red);
+        Piece returnValue = new SinglePiece(Color.red, 1000);
 
-        try {
-            // check if there is piece at space position
-            // if there is none, return null
+        try{
+            // Check if there is piece at space position .If there is none, return null
             // else return the piece at that position
             if (occupied(space)) {
                 returnValue = pieces[space];
@@ -204,7 +200,6 @@ public class Board {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
         }
-
         return returnValue;
     }
 
@@ -218,21 +213,19 @@ public class Board {
      */
     public boolean hasPieceOf(Color color) {
 
-        boolean returnValue = false;
+
 
         // go through the whole array
-        // if there is a piece of color in the arrar return true
+        // if there is a piece of color in the array return true
         // else return false
         for (int i = 1; i < pieces.length; i++) {
 
-            if (pieces[i] != null && pieces[i].getColor() == color) {
-
-                returnValue = true;
-                i = pieces.length;
+            if( pieces[i] != null && pieces[i].getColor() == color ) {
+                return true;
             }
         }
+        return false;
 
-        return returnValue;
     }
 
 

@@ -31,7 +31,7 @@ import Players.Player;
      
 	/**
 	 * Create a move with the starting location and 
-	 * ending location passed in as paremeters.
+	 * ending location passed in as parameters.
 	 *	
 	 * @param startLoc The starting point of the move
 	 * @param endLoc   The ending point of the move

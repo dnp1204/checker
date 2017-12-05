@@ -19,12 +19,16 @@ package Pieces; /**
  *
  */
 
+import Game.Board;
+
 import java.util.*;
 import java.awt.*;
 
 public abstract class Piece {
 	
-   private Color color; // the color of the piece
+    private Color color; // the color of the piece
+
+    private Integer position; // The position of the piece on the board
 
       
    /**
@@ -32,13 +36,23 @@ public abstract class Piece {
     * 
     * @param c - the color for this piece
     */
-   public Piece( Color c ) {
+   public Piece( Color c, Integer position) {
 
 	   // set the color
-	   color = c;
+	   this.color = c;
+       this.position = position;
+
    }
 
-   /**
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    /**
     * The method which is abstract
     * 
     * @return the type of the piece
@@ -54,5 +68,20 @@ public abstract class Piece {
   
 	   return color;
    }
+
+    abstract public KingPiece kingThisPiece();
+
+    abstract public boolean moveIsValid();
+
+    abstract public Vector checkForJumps(Board board);
+
+    protected int getRowPos(){
+        return (position)/8;
+    }
+    protected int getColPos(){
+
+        return (position)%8;
+    }
+
 
 }// Piece

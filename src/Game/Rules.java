@@ -513,14 +513,14 @@ public class Rules {
     private Vector wallPieceMoves(int piecePosition, boolean jump, int pieceType, Player aPlayer) {
 
         Vector<Integer> moves = new Vector<>();
+        boolean isOnRightWall = rightWallPieces.contains(piecePosition);
+        boolean isOnLeftWall =  leftWallPieces.contains(piecePosition);
+        int x;
+        int y;
 
         try {
-            int x;
-            int y;
-
-
             if (pieceType == theBoard.KING) {
-                if (leftWallPieces.contains(piecePosition)) {
+                if (isOnLeftWall) {
                     if (jump) {
                         x = -7;
                         y = -14;
@@ -538,7 +538,7 @@ public class Rules {
                     }
                 }
                 // If the piece is on the right wall.
-                if (rightWallPieces.contains(piecePosition)) {
+                else if (isOnRightWall) {
                     if (jump) {
                         x = -9;
                         y = -18;
@@ -560,7 +560,7 @@ public class Rules {
 
             // The piece is not a king.  If its color is white...
             else if (aPlayer.getColor() == Color.white) {
-                if (leftWallPieces.contains(piecePosition)) {
+                if (isOnLeftWall) {
                     if (jump) {
                         x = -7;
                         y = -14;
@@ -572,7 +572,7 @@ public class Rules {
                         moves = helperForMove(piecePosition, x);
                     }
                 }
-                if (rightWallPieces.contains(piecePosition)) {
+                else if (isOnRightWall) {
                     if (jump) {
                         x = -9;
                         y = -18;
@@ -586,7 +586,7 @@ public class Rules {
             } // end if the piece is white.
             // The piece must be blue.
             else {
-                if (leftWallPieces.contains(piecePosition)) {
+                if (isOnLeftWall) {
                     if (jump) {
                         x = 9;
                         y = 18;
@@ -598,7 +598,7 @@ public class Rules {
                         moves = helperForMove(piecePosition, x);
                     }
                 }
-                if (rightWallPieces.contains(piecePosition)) {
+                else if (isOnRightWall) {
                     if (jump) {
                         x = 7;
                         y = 14;

@@ -278,7 +278,7 @@ public class Facade extends Component {
      * @pre host != null
      */
     public void setHost(URL host) {
-        // Makes sure host isnt null
+        // Makes sure host isn't null
         // Calls setHost() in driver
         if (host != null) {
             theDriver.setHost(host);
@@ -296,25 +296,6 @@ public class Facade extends Component {
         //make sure game is over
         //calls endGame in driver object
         theDriver.endGame(message);
-    }
-
-    /**
-     * Set the game mode: a local game or a network game
-     *
-     * @param  mode of the game
-     *
-     * @pre we are in the setup for a game
-     */
-    public void setGameMode(int mode) throws Exception {
-        // Check to make sure that mode is a legal value
-        // Call setGameMode() in driver class passing it
-        // the legal mode.  If mode is not a legal value
-        // an exception will be thrown
-        if (mode == LOCALGAME || mode == HOSTGAME || mode == CLIENTGAME) {
-            theDriver.setGameMode(mode);
-        } else {
-            throw new Exception("Invalid Game Mode");
-        }
     }
 
     /**
@@ -336,41 +317,11 @@ public class Facade extends Component {
     }
 
     /**
-     * Returns the amount of time chosen for a warning that a player is
-     * near the end of his/her turn.
-     *
-     * @return the amount of warning time a player has
-     * @pre there has been a timer set for the current game
-     */
-    public int getTimerWarning() {
-        int retval = -1;
-
-        // Makes sure there is a timer for this game
-        if (warningTime != 999) {
-            retval = warningTime;
-        }
-
-        // Returns the timer value (clas variable: warningTime )
-        return retval;
-    }
-
-    /**
      * Adds an action listener to the facade
      */
     public void addActionListener(ActionListener a) {
         actionListener = AWTEventMulticaster.add(actionListener, a);
         //Adds an action listener to the facade
-    }
-
-    /**
-     * Called when both players have clicked OK on the end game dialog box
-     *
-     * @post the game has ended
-     */
-    public void endGameAccepted() {
-
-        //waits until both players have accepted the end of the game
-        //end the game
     }
 
     /**
@@ -388,19 +339,6 @@ public class Facade extends Component {
      */
     public void startGame() {
         theDriver.startGame();
-    }
-
-    /**
-     * Generates an action. This is inhereted from Component
-     */
-    public void generateActionPerformed() {
-
-        if (actionListener != null) {
-            actionListener.actionPerformed(
-                    new ActionEvent(this, ActionEvent.ACTION_PERFORMED, ID));
-            // Fires event associated with timer, or a move made on GUI
-        }
-
     }
 
     /**

@@ -84,7 +84,7 @@ public class TestingKernel extends java.lang.Object {
 
         try {
             // Set this game to be a local game.
-            testFacade.setGameMode(testFacade.getLOCALGAME());
+            theDriver.setGameMode(testFacade.getLOCALGAME());
 
             // Create players
             // createPlayer(int num, int type, String name)

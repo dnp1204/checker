@@ -19,12 +19,8 @@ public class JoinGameState implements GameState {
     public void doAction() {
         //set up to join a game
         Facade facade = gameStateContext.getFirstScreen().getTheFacade();
-        try {
-            facade.setGameMode(facade.getCLIENTGAME());
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
 
+        facade.getTheDriver().setGameMode(facade.getCLIENTGAME());
         facade.getTheDriver().createPlayer(1, Player.NETWORKPLAYER, gameStateContext.DEFAULT_PLAYER_NAME);
         facade.getTheDriver().createPlayer(2, Player.NETWORKPLAYER, gameStateContext.DEFAULT_PLAYER_NAME);
 

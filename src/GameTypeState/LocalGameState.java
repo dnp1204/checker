@@ -15,13 +15,8 @@ public class LocalGameState implements GameState {
     @Override
     public void doAction() {
         Facade facade = gameStateContext.getFirstScreen().getTheFacade();
-        try {
-            //set up a local game
-            facade.setGameMode(facade.getLOCALGAME());
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
 
+        facade.getTheDriver().setGameMode(facade.getLOCALGAME());
         facade.getTheDriver().createPlayer(1, Player.LOCALPLAYER, gameStateContext.DEFAULT_PLAYER_NAME);
         facade.getTheDriver().createPlayer(2, Player.LOCALPLAYER, gameStateContext.DEFAULT_PLAYER_NAME);
 

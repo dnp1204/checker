@@ -356,7 +356,7 @@ public class Rules {
                         retval = true;
                     }
                 }
-                adjacentSpace = false;
+
             }
         }
         return retval;
@@ -447,9 +447,9 @@ public class Rules {
      */
     private Vector checkForPossibleMoves(int piecePosition, int pieceType, Player aPlayer) {
 
-
         Vector possibleMoves = new Vector();
-        boolean adjacentSpace;
+        int counter;
+        int length;
 
         // Get available moves if the piece is on a wall.
         possibleMoves.addAll(wallPieceMoves(piecePosition, false, pieceType, aPlayer));
@@ -458,41 +458,25 @@ public class Rules {
         if (pieceType == theBoard.KING) {
             // Check to see if piece is adjacent to piece of opposite color.
             // If there are, add possible end locations to vector.
-            for (int i = 0; i <= adjacentSpots.length; i++) {
-                adjacentSpace = theBoard.occupied(piecePosition
-                        + adjacentSpots[i]);
-                if (!adjacentSpace) {
-                    possibleMoves.addElement(piecePosition +
-                            secondSpots[i]);
-                }
-            } // end for
-
+            counter = 0;
+            length = adjacentSpots.length;
         } // end if (the piece is not a king).
 
         // If the player's color is white it can only move up.
         else if (theBoard.getPieceAt(piecePosition).getColor() == Color.white) {
-            for (int j = 0; j <= 1; j++) {
-                adjacentSpace = theBoard.occupied(piecePosition + adjacentSpots[j]);
-                // If the adjacent spot is empty.
-                if (!adjacentSpace) {
-                    possibleMoves.addElement(piecePosition + secondSpots[j]);
-                }
-                adjacentSpace = false;
-            } // end for
+            counter = 0;
+            length = 1;
         }
         // else the color is blue and can only move down.
         else {
-            for (int k = 2; k <= adjacentSpots.length; k++) {
-                // Check to see if there are empty spots adjacent to piece.
-                adjacentSpace = theBoard.occupied(piecePosition + adjacentSpots[k]);
-                // If there is an empty adjacent spot, add it to the
-                // vector of possible moves.
-                if (!adjacentSpace) {
-                    possibleMoves.addElement(piecePosition + secondSpots[k]);
-                }
-            } // end for
+            counter = 2;
+            length = adjacentSpots.length;
         } // end else
-
+        for (int i = counter; i <= length; i++){
+            if (!theBoard.occupied(piecePosition + adjacentSpots[i])) {
+                possibleMoves.addElement(piecePosition + secondSpots[i]);
+            }
+        }
         return possibleMoves;
 
     }

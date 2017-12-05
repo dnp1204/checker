@@ -123,6 +123,9 @@ public class CheckerGUI extends JFrame implements ActionListener {
                 Color temp = evenColor;
                 evenColor = oddColor;
                 oddColor = temp;
+
+                // increasing the grid y of gridBagConstraint by 1
+                y += 1;
             }
             if (i % 2 == 0) {
                 jButton.setBackground(evenColor);
@@ -132,9 +135,6 @@ public class CheckerGUI extends JFrame implements ActionListener {
 
             gridBagConstraints1 = new java.awt.GridBagConstraints();
             gridBagConstraints1.gridx = i % 8;
-            if (i % 8 == 0) {
-                y += 1;
-            }
             gridBagConstraints1.gridy = y;
             getContentPane().add(jButton, gridBagConstraints1);
         }

@@ -12,10 +12,8 @@ package GUIElements;/*
  */
 
 import Game.Facade;
-import GameTypeState.GameState;
-import GameTypeState.HostGameState;
-import GameTypeState.JoinGameState;
-import GameTypeState.LocalGameState;
+import GameTypeState.*;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -27,6 +25,7 @@ import java.awt.*;
 public class FirstScreen extends JFrame implements ActionListener {
 
     private Facade theFacade;
+    private GameStateContext gameStateContext;
 
     // Variables declaration - do not modify
     private JRadioButton LocalGameButton = new JRadioButton("Local game");
@@ -38,12 +37,6 @@ public class FirstScreen extends JFrame implements ActionListener {
     private JButton CancelButton = new JButton("Cancel");
     private JLabel IPExampleLabel = new JLabel("Ex: 123.456.789.123");
     private ButtonGroup gameModes = new ButtonGroup();
-
-    // GameState variables
-    private GameState gameState;
-    private GameState localGameState;
-    private GameState joinGameState;
-    private GameState hostGameState;
     // End of variables declaration
 
     private final Color background = new Color(204,204,204);
@@ -59,11 +52,7 @@ public class FirstScreen extends JFrame implements ActionListener {
 
         super("First screen");
         theFacade = facade;
-
-        localGameState = new LocalGameState(this);
-        joinGameState = new JoinGameState(this);
-        hostGameState = new HostGameState(this);
-        gameState = localGameState;
+        gameStateContext = new GameStateContext(this);
 
         initComponents();
         pack();
@@ -128,24 +117,19 @@ public class FirstScreen extends JFrame implements ActionListener {
 
         LocalGameButton.setActionCommand("local");
         LocalGameButton.setSelected(true);
-
         getContentPane().add(LocalGameButton, setGridBagConstraint(1,0));
 
         HostGameButton.setActionCommand("host");
-
         getContentPane().add(HostGameButton, setGridBagConstraint(1,1));
 
         JoinGameButton.setActionCommand("join");
-
         getContentPane().add(JoinGameButton, setGridBagConstraint(1,2));
 
         setBackgroundAndName(IPField,"textfield5",Color.white,Color.black);
         IPField.setEnabled(false);
-
         getContentPane().add(IPField, setGridBagConstraint(2,3));
 
         setBackgroundAndName(IPLabel,"label10",background,Color.black);
-
         getContentPane().add(IPLabel, setGridBagConstraint(1,3));
 
         OKButton.setActionCommand("ok");
@@ -171,35 +155,15 @@ public class FirstScreen extends JFrame implements ActionListener {
 
     /**
      * This takes care of when an action takes place. It will check the
-     * action command of all components and then deicde what needs to be done.
+     * action command of all components and then decide what needs to be done.
      *
      * @param e the event that has been fired
      */
 
     public void actionPerformed(ActionEvent e) {
-        //this code handles disabling the IP field unless
-        //the join game radio button is selected
-        if ((e.getActionCommand()).equals("join")) {
-            gameState = joinGameState;
-            gameState.setIPField();
-        } else if ((e.getActionCommand()).equals("local")) {
-            gameState = localGameState;
-            gameState.setIPField();
-        } else if ((e.getActionCommand()).equals("host")) {
-            gameState = hostGameState;
-            gameState.setIPField();
-
-        } else if ((e.getActionCommand()).equals("ok")) {
-            //this next if statement takes care of when the
-            //OK button is selected and goes to the second
-            //screen settings the desired options
-            gameState.doAction();
-
-            //if they hit cancel exit the game
-        } else if (e.getActionCommand().equals("cancel")) {
-            System.exit(0);
-        }
-    }//end of actionPerformed
+        gameStateContext.doAction(e.getActionCommand());
+        gameStateContext.setIPField();
+    }
 
     public Facade getTheFacade() {
         return theFacade;

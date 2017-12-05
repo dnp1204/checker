@@ -29,20 +29,20 @@ public class JoinGameState implements GameState {
 
             //create a URL from the IP address in the IPfield
             URL address = new URL("http://" + gameStateContext.getFirstScreen().getIPField().getText());
+
             //set the host
-            facade.setHost(address);
-
-            //hide the FirstScreen, make and show the Second screen
-            gameStateContext.getFirstScreen().hide();
-            SecondScreen next = new SecondScreen(facade, gameStateContext.getFirstScreen(), facade.getCLIENTGAME());
-            next.show();
-
+            facade.getTheDriver().setHost(address);
             //catch any exceptions
         } catch (MalformedURLException x) {
             JOptionPane.showMessageDialog(null,
                     "Invalid host address",
                     "Error",
                     JOptionPane.INFORMATION_MESSAGE);
+
+            //hide the FirstScreen, make and show the Second screen
+            gameStateContext.getFirstScreen().hide();
+            SecondScreen next = new SecondScreen(facade, gameStateContext.getFirstScreen(), facade.getCLIENTGAME());
+            next.show();
         }//end of networking catch statement
     }
 

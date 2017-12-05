@@ -147,7 +147,6 @@ public class FirstScreen extends JFrame implements ActionListener {
         getContentPane().add(CancelButton, gridBagConstraints1);
 
         setBackgroundAndName(IPExampleLabel, "label11", background, Color.black);
-
         getContentPane().add(IPExampleLabel, setGridBagConstraint(2,4));
 
         addListeners();

@@ -28,9 +28,8 @@ public class Facade extends Component {
     private final int HOSTGAME = 20000;
     private final int CLIENTGAME = 30000;
 
-    public static String update = "update";
-    public static String playerSwitch = "switch";
-    private static String ID = "facade";
+    public final String UPDATE = "UPDATE";
+    public final String PLAYER_SWITCH = "switch";
 
     private Driver theDriver;
     private Board theBoard;
@@ -42,7 +41,6 @@ public class Facade extends Component {
 
     // The numbers associated with the timer
     private int timer = 999;
-    private int warningTime = 999;
 
     private ActionListener actionListener;
 
@@ -103,8 +101,8 @@ public class Facade extends Component {
         activePlayer = active;
         passivePlayer = passive;
 
-        // Tell GUI to update
-        generateActionPerformed(update);
+        // Tell GUI to UPDATE
+        generateActionPerformed(UPDATE);
     }
 
     /**
@@ -139,7 +137,7 @@ public class Facade extends Component {
             }
         }
 
-        generateActionPerformed("update");
+        generateActionPerformed("UPDATE");
 
     }
 
@@ -262,26 +260,10 @@ public class Facade extends Component {
                 && (warning >= 10 || warning <= 300))) {
 
             timer = time;
-            warningTime = warning;
             theDriver.setTimer(time, warning);
             return true;
         } else {
             return false;
-        }
-    }
-
-    /**
-     * Tell the kernel to connect to the specified host to
-     * start a network game.
-     *
-     * @param host
-     * @pre host != null
-     */
-    public void setHost(URL host) {
-        // Makes sure host isn't null
-        // Calls setHost() in driver
-        if (host != null) {
-            theDriver.setHost(host);
         }
     }
 
@@ -330,7 +312,7 @@ public class Facade extends Component {
      * @return a Board object which is the state of the board
      */
     public Board stateOfBoard() {
-        // Return the board so GUI can go through and update itself
+        // Return the board so GUI can go through and UPDATE itself
         return theBoard;
     }
 

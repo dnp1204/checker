@@ -97,7 +97,7 @@ public class Driver {
                                 " another jump", "Multiple Jump Possible",
                         JOptionPane.INFORMATION_MESSAGE);
 
-                // Get the GUI to update
+                // Get the GUI to UPDATE
                 theFacade.setPlayerModes(activePlayer, passivePlayer);
 
                 // If game is networked tell networked player to send
@@ -116,7 +116,7 @@ public class Driver {
             }
 
             // Inform the other player to make a move and
-            // tell facade to update any listining GUIs and
+            // tell facade to UPDATE any listining GUIs and
             // reset the timer
 
             Player tempHold = activePlayer;
@@ -379,14 +379,9 @@ public class Driver {
 
     /**
      * Select the type of game
-     * <p>
-     * <<<<<<< HEAD
      *
      * @param newMode the mode (0 local, 1 host, 2 client) of the game
      * @pre Players have not been created
-     * =======
-     * @pre Players have not been created
-     * >>>>>>> master
      * @post Mode is set
      */
     public void setGameMode(int newMode) {

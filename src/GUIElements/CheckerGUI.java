@@ -269,12 +269,12 @@ public class CheckerGUI extends JFrame implements ActionListener {
             } else if (e.getSource().equals(theFacade)) {
 
                 //if its a player switch event
-                if ((e.getActionCommand()).equals(theFacade.playerSwitch)) {
+                if ((e.getActionCommand()).equals(theFacade.PLAYER_SWITCH)) {
                     //set a new time
                     timeRemaining = theFacade.getTimer();
-                    //if it is an update event
-                } else if ((e.getActionCommand()).equals(theFacade.update)) {
-                    //update the GUI
+                    //if it is an UPDATE event
+                } else if ((e.getActionCommand()).equals(theFacade.UPDATE)) {
+                    //UPDATE the GUI
                     update();
                 } else {
                     throw new Exception("unknown message from facade");
@@ -327,7 +327,7 @@ public class CheckerGUI extends JFrame implements ActionListener {
     }
 
     /*
-     * Helper method to update the image icon for JButton if there is
+     * Helper method to UPDATE the image icon for JButton if there is
      * a piece there. Otherwise, show no picture
      */
     private void updatePiece(Board board, int index) {
@@ -350,7 +350,7 @@ public class CheckerGUI extends JFrame implements ActionListener {
 
     /*
      * Helper method to check it is single piece or king piece to
-     * update image icon properly
+     * UPDATE image icon properly
      */
     private void checkTypePieceToUpdate(Board board, int index, String color) {
         JButton temp = (JButton) possibleSquares.get(index);
@@ -370,7 +370,7 @@ public class CheckerGUI extends JFrame implements ActionListener {
     }
 
     /*
-     * Helper method to update image icon for piece
+     * Helper method to UPDATE image icon for piece
      */
     private void updateImageIcon(JButton temp, String fileName) {
         //get the picture from the web

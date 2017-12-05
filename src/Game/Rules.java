@@ -91,12 +91,6 @@ public class Rules {
             Vector tempVec = new Vector<>();
             Vector<Integer> startVec = new Vector<>();
             Vector<Integer> possibleJumps = checkForPossibleJumps(start, pieceType, player);
-            // Check all pieces for jumps.
-            //if ( player.getColor() == Color.white ) {
-            //pieces = theBoard.whitePieces();
-            //} else {
-            //pieces = theBoard.bluePieces()    ;
-            //}
 
             // For each piece of the current color, see if there are forced jumps.
             for (int count = 1; count < BOARD_SIZE; count++)
@@ -201,13 +195,11 @@ public class Rules {
      */
     private boolean checkEndCond() {
 
-        boolean retval = false;
-
         if (checkForNoPieces() /*|| checkForNoMoves()*/) {
-            retval = true;
+            return true;
         }
 
-        return retval;
+        return false;
 
     }
 
@@ -276,16 +268,15 @@ public class Rules {
      */
     private boolean checkForNoPieces() {
 
-        boolean retval = false;
         Player oppositePlayer = theDriver.getOppositePlayer();
 
         // If the board does not have any pieces of the opposite player,
         // the current player has captured all pieces and won.
         if (!theBoard.hasPieceOf(oppositePlayer.getColor())) {
-            retval = true;
+            return true;
         }
 
-        return retval;
+        return false;
 
     }
 
@@ -299,7 +290,7 @@ public class Rules {
      * @return possibleJumps which contains end positions of possible jumps.
      */
     private Vector<Integer> checkForPossibleJumps(int piecePosition, int pieceType,
-                                         Player aPlayer) {
+                                                  Player aPlayer) {
 
         Vector possibleJumps = new Vector();
         boolean adjacentSpace = false;
@@ -335,7 +326,7 @@ public class Rules {
             // Check to see if piece is adjacent to piece of opposite color.
             // If there are, add possible end locations to vector.
             for (; i < loop; i++) {
-                checkAdjSpace(piecePosition,adjacentSpace,aPiece,endSpace,player,possibleJumps,i);
+                checkAdjSpace(piecePosition, adjacentSpace, aPiece, endSpace, player, possibleJumps, i);
             }
         }
         // If piece is white...
@@ -343,13 +334,13 @@ public class Rules {
 
 
             for (int j = 0; j <= 1; j++) {
-                checkAdjSpace(piecePosition, adjacentSpace,aPiece,endSpace,player,possibleJumps,j);
+                checkAdjSpace(piecePosition, adjacentSpace, aPiece, endSpace, player, possibleJumps, j);
             }
         }
         // else the Color is blue and can only move down.
         else {
             for (int k = 2; k < adjacentSpots.length; k++) {
-                checkAdjSpace(piecePosition, adjacentSpace,aPiece,endSpace,player,possibleJumps,k);
+                checkAdjSpace(piecePosition, adjacentSpace, aPiece, endSpace, player, possibleJumps, k);
             }
         }
 
@@ -422,7 +413,8 @@ public class Rules {
                 // Check to see if piece is adjacent to piece of opposite color.
                 // If there are, add possible end locations to vector.
                 for (int i = 0; i <= adjacentSpots.length; i++) {
-                    retval = checkOthAdjSpace(piecePosition,adjacentSpace,aPiece,endSpace,player,possibleJumps,i,retval);
+                    retval = checkOthAdjSpace(piecePosition, adjacentSpace, aPiece, endSpace, player, possibleJumps,
+                            i, retval);
                 }
             }
             // Else the piece is regular.
@@ -430,15 +422,15 @@ public class Rules {
                 // If it is white the player can only move up.
                 if (player.getColor() == Color.white) {
                     for (int j = 0; j <= 1; j++) {
-                        retval = checkOthAdjSpace(piecePosition,adjacentSpace,aPiece,endSpace,
-                                player,possibleJumps,j,retval);
+                        retval = checkOthAdjSpace(piecePosition, adjacentSpace, aPiece, endSpace,
+                                player, possibleJumps, j, retval);
                     }
                 }
                 // else the Color is blue and can only move down.
                 else {
                     for (int k = 2; k <= adjacentSpots.length; k++) {
-                        retval = checkOthAdjSpace(piecePosition,adjacentSpace,aPiece,endSpace,
-                                player,possibleJumps,k,retval);
+                        retval = checkOthAdjSpace(piecePosition, adjacentSpace, aPiece, endSpace,
+                                player, possibleJumps, k, retval);
                     }
                 }
             }
@@ -451,7 +443,7 @@ public class Rules {
     }
 
     private boolean checkOthAdjSpace(int piecePosition, boolean adjacentSpace, Piece aPiece, boolean endSpace,
-                                  Player player, Vector possibleJumps, int j, boolean retval){
+                                     Player player, Vector possibleJumps, int j, boolean retval) {
         if (!leftWallPieces.contains(piecePosition + adjacentSpots[j]) &&
                 !rightWallPieces.contains(piecePosition + adjacentSpots[j])) {
             adjacentSpace = theBoard.occupied(piecePosition +
@@ -866,29 +858,21 @@ public class Rules {
      * @return true if the piece needs to be kinged.
      */
     private boolean checkForMakeKing(int end, int pieceType) {
+        Set<Integer> endWhite = new HashSet<>(Arrays.asList(1, 3, 5, 7));
+        Set<Integer> endBlue = new HashSet<>(Arrays.asList(56, 58, 60, 62));
 
-        boolean retval = false;
+        if (pieceType == Board.SINGLE) {
+            if (currentMove.getPlayer().getColor() == Color.white && endWhite.contains(end)) {
+                theBoard.kingPiece(end);
+                return true;
+            } else if (endBlue.contains(end)) {
+                theBoard.kingPiece(end);
+                return true;
+            }
 
-        try {
-            if (pieceType == Board.SINGLE) {
-                if (currentMove.getPlayer().getColor() == Color.white) {
-                    if (end == 1 || end == 3 || end == 5 || end == 7) {
-                        theBoard.kingPiece(end);
-                        retval = true;
-                    }
-                } else {
-                    if (end == 56 || end == 58 || end == 60 || end == 62) {
-                        theBoard.kingPiece(end);
-                        retval = true;
-                    }
-                }
+        } // if single
 
-            } // if single
-
-        } catch (Exception e) {
-        }
-
-        return retval;
+        return false;
     }
 
     /**
@@ -901,38 +885,32 @@ public class Rules {
      */
     public boolean checkEndConditions() {
 
-        //the return value
-        boolean retVal = false;
-        try {
-            //the number of each piece left
-            int whitesGone = 0, bluesGone = 0;
+        //the number of each piece left
+        int whitesGone = 0, bluesGone = 0;
 
-            //go through all the spots on the board
-            for (int i = 1; i < theBoard.sizeOf(); i++) {
-                //if there is a piece there
-                if (theBoard.occupied(i)) {
-                    //if its a blue piece there
-                    if ((theBoard.getPieceAt(i)).getColor() == Color.blue) {
-                        // increment number of blues
-                        bluesGone++;
-                        //if the piece is white
-                    } else if ((theBoard.getPieceAt(i)).getColor()
-                            == Color.white) {
-                        //increment number of whites
-                        whitesGone++;
-                    }
+        //go through all the spots on the board
+        for (int i = 1; i < theBoard.sizeOf(); i++) {
+            //if there is a piece there
+            if (theBoard.occupied(i)) {
+                //if its a blue piece there
+                if ((theBoard.getPieceAt(i)).getColor() == Color.blue) {
+                    // increment number of blues
+                    bluesGone++;
+                    //if the piece is white
+                } else if ((theBoard.getPieceAt(i)).getColor()
+                        == Color.white) {
+                    //increment number of whites
+                    whitesGone++;
                 }
-            }   //end of for loop
-
-            //if either of the number are 0
-            if (whitesGone == 0 || bluesGone == 0) {
-                retVal = true;
             }
+        }   //end of for loop
 
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
+        //if either of the number are 0
+        if (whitesGone == 0 || bluesGone == 0) {
+            return true;
         }
-        return retVal;
+
+        return false;
 
     }//checkEndConditions
 

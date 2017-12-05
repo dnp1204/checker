@@ -28,9 +28,8 @@ import java.awt.*;
 public class Board {
 
     private Piece pieces[]; // the pieces that are on the board
-    public static int SINGLE = 0;
-    public static int KING = 1;
-
+    public static final int SINGLE = 0;
+    public static final int KING = 1;
 
     /**
      * This constructor creates a new board at the beginning of the game
@@ -43,7 +42,7 @@ public class Board {
         // Set the values of numWhites and numBlues to 12 each
         pieces = new Piece[64];
 
-        // create blue pices
+        // create blue pieces
         pieces[1] = new SinglePiece(Color.blue);
         pieces[3] = new SinglePiece(Color.blue);
         pieces[5] = new SinglePiece(Color.blue);
@@ -91,7 +90,6 @@ public class Board {
             // if it is return -1
             returnValue = -1;
 
-
             // if it is not set a start position in the array to null
             // put a piece object at the end position in the array
             // that was at the start positon before
@@ -99,7 +97,6 @@ public class Board {
 
             pieces[end] = pieces[start];
             pieces[start] = null;
-
 
         }
 
@@ -123,7 +120,6 @@ public class Board {
         // false if the space is empty
         // if it's outside the bounds of the array,
         // return true
-
         if (space >= 1 && space <= 63 && pieces[space] == null) {
             returnValue = false;
         }
@@ -141,7 +137,6 @@ public class Board {
 
         // go to the space position in the array
         // set it equal to null
-
         pieces[space] = null;
 
     }
@@ -204,16 +199,12 @@ public class Board {
             // if there is none, return null
             // else return the piece at that position
             if (occupied(space)) {
-
                 returnValue = pieces[space];
-
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
-
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
         }
+
         return returnValue;
     }
 
@@ -227,7 +218,6 @@ public class Board {
      */
     public boolean hasPieceOf(Color color) {
 
-
         boolean returnValue = false;
 
         // go through the whole array
@@ -236,7 +226,6 @@ public class Board {
         for (int i = 1; i < pieces.length; i++) {
 
             if (pieces[i] != null && pieces[i].getColor() == color) {
-
 
                 returnValue = true;
                 i = pieces.length;

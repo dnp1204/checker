@@ -12,7 +12,7 @@ package Game; /**
 
 /**
  * This timer runs on the separate thread and during
- * the simulation tells fasade to update the warning and normal times
+ * the simulation tells fasade to UPDATE the warning and normal times
  *
  * @author
  * @invariant all variables have valid values
